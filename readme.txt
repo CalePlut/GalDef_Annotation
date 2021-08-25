@@ -1,0 +1,1 @@
+Annotation software used to annotate Galactic Defense, to compare with PreGLAM's output.
