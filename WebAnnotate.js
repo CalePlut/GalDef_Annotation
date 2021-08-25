@@ -2,21 +2,25 @@ document.addEventListener('keydown', keyPress)
 
 var change = false;
 var time = 0.0;
+var annot = 0.0;
 var chart;
 var affectData = [["Time","Rating"]];
 var playing = false;
 var vid = document.getElementById("annot_target");
 var annotating=true;
 var myVideo ="";
-var dimension = ""
+var dimension = window.sessionStorage.getItem("Dimension");
 
 const labels=[0.25]
 const data = {
     labels: labels,
     datasets: [{
-        label: dimension,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
+        label: capitalizeFirstLetter(dimension),
+        backgroundColor: 'rgb(255,0, 0)',
+        borderColor: 'rgb(255,255,255)',
+        borderWidth: '1',
+        pointRadius:'1',
+        color:'rgb(255,255,255)',
         data: [0],
     }]
 };
@@ -24,13 +28,12 @@ const data = {
 const config = {
     type: 'line', data,
     options: { responsive: true,
-        padding:20        
+        padding:20       
     }
 };
-
+ 
 //Setup
 function annotation_setup() {
-    dimension=window.sessionStorage.getItem("Dimension");
     console.log("Dimension = " + dimension);
     console.log("Starting annotation");
     vid = document.getElementById("annot_target");
@@ -129,11 +132,12 @@ function annotate_video() {
 }
 
 function update_chart() {
-    affectData.push([time, dimension])
+    console.log("Time:" + time + ", annot: "+annot);
+    affectData.push([time, annot])
     let all_labels=data.labels;
     all_labels.push(time);
     data.labels=all_labels;
-    data.datasets[0].data.push(dimension);
+    data.datasets[0].data.push(annot);
     chart.update();
 }
 
@@ -154,14 +158,15 @@ function keyPress(e) {
         else if (e.code=="Space"){
             if(!playing){
                 begin_annotate();
-            
             }
             else{pause_annotate();}
         }
 
-        dimension += toChange;
+        annot += toChange;
         //console.log(dimension);
     }
 
 
 }
+
+function capitalizeFirstLetter(string){return string.charAt(0).toUpperCase() + string.slice(1);}

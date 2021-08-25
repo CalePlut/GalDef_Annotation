@@ -81,7 +81,7 @@ function Consent_to_Instructions() {
 
 function Load_annotation(){
 save_data();
-
+window.location.href ="annotate.html";
 }
 
 function save_data(){
