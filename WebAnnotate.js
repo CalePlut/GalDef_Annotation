@@ -1,7 +1,6 @@
 document.addEventListener('keydown', keyPress)
 
 var change = false;
-var dimension = 0.0;
 var time = 0.0;
 var chart;
 var affectData = [["Time","Rating"]];
@@ -9,7 +8,7 @@ var playing = false;
 var vid = document.getElementById("annot_target");
 var annotating=true;
 var myVideo ="";
-var dimension = "Valence"
+var dimension = ""
 
 const labels=[0.25]
 const data = {
@@ -31,6 +30,8 @@ const config = {
 
 //Setup
 function annotation_setup() {
+    dimension=window.sessionStorage.getItem("Dimension");
+    console.log("Dimension = " + dimension);
     console.log("Starting annotation");
     vid = document.getElementById("annot_target");
     var toVideo = "GalDefLose1.mp4";

@@ -1,22 +1,164 @@
-<title>GalDef Annotate</title>
+<title>Consent and Demo</title>
 <meta http-equiv="Cache-control" content="No-Cache">
-<html scroll="no">
-    <head>
-        <link rel="stylesheet" href="annotate_style.css">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@3.4.3/dist/excellentexport.min.js"></script>
-       <!-- <script src="https://www.caleplut.com/GalDef/WebAnnotate.0.0.1.js"></script>-->
-       <script src="WebAnnotate.js"></script>
-    </head>
-    <body  onLoad="annotation_setup()">
-        <div>
-        <video id="annot_target" class="videoInsert" onplay="begin_annotate()" onpause="pause_annotate()" onended="end_annotate()">
-            <source id = "annot_vid" src="" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <canvas float = right id="affect_chart">
-        </canvas>
-            <button id = "upload_file" value = "Go", onclick="post_CSV()">Upload</button>
-        </div>
-    </body>
-    </html>
+
+<head>
+    <script src="annotate_build.js"></script>
+    <link rel="stylesheet" href="annotate_style.css">
+</head>
+
+<template id="valence_instructions">
+    <h2>Valence</h2>
+    <p>Valence is sometimes called "pleasantness", and is associated with pleasure or attractiveness<br>
+        Events that are desirable, or that we want, are positively valenced, and events that are undesirable, that we don't want, are negatively valenced</p>
+    <p>Valence is independent of the activity level<br>
+        Excitement is an active positively valenced emotion, while satisfaction is an inactive positively valenced emotion<br>
+        Nervousness is an active negatively valenced emotion, while boredom is an inactive negatively valenced emotion</p>
+    <p>Examples of high-valence emotions include joy, excitement, satisfaction, or triumph<br>Examples of low-valence emotions include sadness, fear, anger, or disgust</p>
+    <p>Examples of high-valence activities in games may be passing an opponent in a driving game, finishing a quest in an RPG, and landing a combo in a fighting game<br>
+        Examples of low-valence activities in games may be being passed in a driving game, losing a unit in a tactics game, and winning an objective in a MOBA </p>
+</template>
+
+<template id="arousal_instructions">
+    <h2>Arousal</h2>
+    <p>Arousal is an emotional dimension associated with energy or activity</p>
+    <p>Arousal is a state of heightened activity, which may be pleasant or unpleasant. The level of arousal describes the activity or energy of an emotion</p>
+    <p>Exhuberation/Joy is a pleasant high-arousal emotion, while hate is an unpleasant high-arousal emotion - both are highly energetic</p>
+    <p>Contentment is a pleasant low-arousal emotion, while guilt is an unpleasant low-arousal emotion - both are low-energy</p>
+    <p>Examples of high-arousal emotions include excitement, anger, or triumph<br>
+        Examples of low-arousal emotions include satisfaction, depression, exhaustion, or relaxation</p>
+    <p>In games, arousal is directly linked to the activity levle of the game, or the amount of things going on</p>    
+</template>
+
+<template id="tension_instructions">
+    <h2>Tension</h2>
+    <p>Tension is an emotional dimension associated with events in the future. Tension may be pleasant or unpleasant</p> 
+    <p>Excitement is a pleasant, high-tension emotion - something that we want might be coming<br>
+    Satisfaction is a pleasant, low-tension emotion - something we wanted has happened<br>
+    Fear is an example of an unpleasant, high-tension emotion - something that we don't want might be coming<br>
+    Sadness is an example of low negative tension - something we didn't want has happened</p>
+    <p>Examples of high-tension emotions include fear, excitement, or unease<br>
+        Examples of low-tension emotions include satisfaction, sadness, and joy</p>
+    <p>
+        Examples of high-tension situations in games may be playing X-Com, when a shell is coming in Mario Kart, or when you thing your opponent is about to use their full meter in a fighting game<br>
+        Examples of low-tension situations in games may be being comfortably in the lead in a driving game, resting at a bonfire in Dark Souls, or predicting a checkmate in chess.
+    </p>
+</template>
+
+<template id="annotation_instructions">
+   <h2>Annotation instructions</h2>
+   <p id="annot_instr">You will be presented 4 videos of recorded gameplay from Galactic Defense<br>
+   For each video, you will be asked to provide a real-time annotation of the _dimension that you perceive, while watching the gameplay<br><br>
+   Once the annotation page has loaded, you will provide annotations using the arrow keys on your keyboard<br>
+   Press the spacebar to begin and pause the video and annotation<br>
+   Press the up arrow to increase the level of _dimension<br>
+   Press the down arrow to decrease the level of _dimension
+   </p>
+   <p>When you are ready to begin, please press the "Begin annotation" button</p>
+   <button type="button" class = "button" onclick="Load_annotation()">Begin annotation</button>
+</template>
+
+<body onload="study_setup()">
+    <div id="consentDiv" class="consent">
+        <h1>Consent information</h1>
+        <h2>Principal investigator</h2>
+        <p>Philippe Pasquier<br>Metacreation Lab, School of Interactive Arts and Technology</p>
+        <h2>Co-investigators</h2>
+        <p>Cale Plut, Jeff Ens, Renaud Tchemeube<br>Metacreation Lab, School of Interactive Arts and Technology</p>
+        <h2>What is the purpose of this study?</h2>
+        <p>We are collecting data on the effects of music on emotional perception of a video game while spectating.
+            <br>This data will be used to evaluate a psychological emotion model, and various applications of music in
+            video games</p>
+        <h2>Your participation is voluntary</h2>
+        <p>Your participation is voluntary. You have the right to refuse to participate in this study. <br>If you decide
+            to participate, you may still choose to withdraw from the study at any time without any negative
+            consequences.</p>
+        <h2>What will you do in this study?</h2>
+        <p>This study has two phases. For the first phase, you will be asked to download and play a video game for 20
+            minutes, to familiarize yourself with the gameplay<br>For the second phase, you will be shown 4 videos of
+            recorded gameplay of the video game. You will be asked to provide real-time annotation about the emotion
+            that you perceive.</p>
+        <h2>Are there any risks involved with this study?</h2>
+        <p>There are no forseeable risks to you participating in this study</p>
+        <h2>What are the benefits of participating?</h2>
+        <p>We do not think taking part in this study will directly help you. However, in the future, others may benefit
+            from
+            what we learn in this study.</p>
+        <h2>How will you be compensated for your time?</h2>
+        <p>You will be given 2 credits on the Sona research participation system</p>
+        <h2>How will your identity be protected?</h2>
+        <p>Your confidentiality will be respected. We collect Student IDs only for the purposes of verifying your
+            participation in the study</p>
+        <p>
+        </p>
+        <h2>Can I withdraw at any time?</h2>
+        <p>You may withdraw from this study at any time without giving reasons and with no effects.</p>
+        <h2>How will the results be disseminated?</h2>
+        <p>The results of this study will be published in academic journal articles.</p>
+        <h2>Who can you contact if you have questions about the study?</h2>
+        <p>You may contact Cale Plut, School of Interactive Arts and Technology<br> <a
+                href="mailto:cplut@sfu.ca">cplut@sfu.ca</a> or 604-614-4465</p>
+        <h2>Who can you contact if you have complaints or concerns about the study?</h2>
+        <p>If you have any concerns about your rights as a research participant and/or your experiences while
+            participating in this study, you may contact:<br>
+            Dr. Jeffrey Toward, Director, Office of Research Ethics<br>
+            <a href="mailto:jtoward@sfu.ca">jtoward@sfu.ca</a> or 778-782-6593
+        </p>
+<hr><br>
+        <p>Please provide your student ID, to verify participation, and check the box to indicate that you have read and
+            understand this consent form</p>
+        <input type="text" id="studentID" name="studentID">Student ID</input><br>
+        <input type="checkbox" id="consent" name="consent" onclick="scrollFromConsent()">I agree</checkbox>
+
+    </div>
+
+    <div id="Demographic_information">
+        <h1>Demographic information</h1>
+        <p>Please enter your age:<input type="text" id="age" name = "Age"></input></p>
+        <label for="pronouns">Please select pronouns:</label>
+        <select name="pronouns" id="pronouns">
+            <option value="NoAnswer">Please select one</option>
+            <option value="He/Him">He/Him</option>
+            <option value="She/Her">She/Her</option>
+            <option value="They/Them">They/Them</option>
+            <option value="Other">Other/Prefer not to say</option>
+        </select><br>
+<label for="hoursPerWeek">How often do you play video games in an average week?</label>
+        <select name="hoursPerWeek" id = "hoursPerWeek">
+            <option value = "NoAnswer">Please select one</option>
+            <option value = "0-4">0-4 hours per week</option>
+            <option value = "4-8">4-8 hours per week</option>
+            <option value = "8-12">8-12 hours per week</option>
+            <option value="12-16">12-16 hours per week</option>
+            <option value="16-20">12-16 hours per week</option>
+            <option value="20+">20+ hours per week</option>
+        </select>
+    </div>
+
+    <!--Note: add style="display:none" to all of these at the end of development.-->
+    <div id="Phase1_Instructions" class="Instructions">
+        <h1>Phase 1</h1>
+        <p>You will be directed to the itch.io website, where you will be able to download <i>Galactic Defense</i></p>
+        <p>For phase one, you are asked to play Galactic Defense for 20 minutes. Galactic Defense will track your time,
+            and inform you when the 20 minutes are elapsed</p>
+        <p>Please use these 20 minutes to familiarize yourself with the gameplay of Galactic Defense</p>
+        <h2>How to play</h2>
+        <p>Galactic Defense has an interactive tutorial, accessible from the menu screen<br>
+        A video tutorial is available at <i>---in progress---</i><br>
+        <i>---An image explaining gameplay will go here when finished---</i>
+        </p>
+        <h2>Link</h2>
+        <a href="https://caleplut.itch.io/galacticdefense" target="_blank">Link to Galactic Defense on Itch.io</a>
+        <p>Note: This link will attempt to open a new window. If nothing happens, please check your popup blocker<br>If
+            the link continues to fail, please open a new tab or window and navigate to
+            "https://caleplut.itch.io/galacticdefense"</p>
+            <hr><br>
+            <p>When you have played Galactic Defense for 20 minutes (the game will inform you), please return to this page, and hit the "Continue to phase 2" button</p>
+        <button type="button" class="button" id="phase2_button" onclick="phase2()">Continue to phase 2</button>
+    </div>
+
+    <div id="Phase2_Instructions" class="Instructions">
+        <h2>Phase 2</h2>
+        <p id="phase2_text">You will be shown 4 videos of gameplay recorded from Galactic Defense gameplay <br> 
+            For each video, we ask you to annotate the emotional dimension of _dimension</p>
+    </div>
+</body>

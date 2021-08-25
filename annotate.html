@@ -1,0 +1,22 @@
+<title>GalDef Annotate</title>
+<meta http-equiv="Cache-control" content="No-Cache">
+<html scroll="no">
+    <head>
+        <link rel="stylesheet" href="annotate_style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@3.4.3/dist/excellentexport.min.js"></script>
+       <!-- <script src="https://www.caleplut.com/GalDef/WebAnnotate.0.0.1.js"></script>-->
+       <script src="WebAnnotate.js"></script>
+    </head>
+    <body  onLoad="annotation_setup()">
+        <div>
+        <video id="annot_target" class="videoInsert" onplay="begin_annotate()" onpause="pause_annotate()" onended="end_annotate()">
+            <source id = "annot_vid" src="" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
+          <canvas float = right id="affect_chart">
+        </canvas>
+            <button id = "upload_file" value = "Go", onclick="post_CSV()">Upload</button>
+        </div>
+    </body>
+    </html>
