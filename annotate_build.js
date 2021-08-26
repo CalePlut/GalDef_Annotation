@@ -1,10 +1,12 @@
 var StudentID;
+var data_id;
 var consent = false;
 var dimension = "";
 
 var consentDiv, demo_info, phase1_instructions, phase2_instructions;
 
 function study_setup(){
+    data_id='_'+Math.random().toString(36).substr(2, 9);
     consentDiv =document.getElementById("consentDiv");
     demo_info = document.getElementById("Demographic_information");
     phase1_instructions=document.getElementById("Phase1_Instructions");
@@ -85,16 +87,8 @@ window.location.href ="annotate.html";
 }
 
 function save_data(){
-var age = document.getElementById("age").value;
-var pronouns = document.getElementById("pronouns").value;
-var weekly_hours=document.getElementById("hoursPerWeek").value;
-
 window.sessionStorage.setItem("StudentID", StudentID);
+window.sessionStorage.setItem("data_id", data_id);
 window.sessionStorage.setItem("Consent", consent);
-window.sessionStorage.setItem("Age", age);
-window.sessionStorage.setItem("Pronouns", pronouns);
-window.sessionStorage.setItem("Weekly_hours", weekly_hours)
 window.sessionStorage.setItem("Dimension", dimension);
-
-
 }

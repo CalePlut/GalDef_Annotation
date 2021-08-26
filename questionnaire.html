@@ -1,0 +1,93 @@
+<title>GalDef Questionnaire</title>
+<head>
+    <link rel="stylesheet" href="annotate_style.css">
+    <meta http-equiv="Cache-control" content="No-Cache">
+    <script src="videoClips.js"></script>
+    <script src="questionnaire_script.js"></script>
+</head>
+<body onload="load_questionnaire()">
+   <div style="height:100%; width:100%; border:none">
+    <div class = "split top_left">
+        <h1>A</h1>
+        <video id="vid_1"  class = "videoInsert" src="GalDefSample.mp4" type="video/mp4" controls>
+          Your browser does not support the video tag.
+          </video>
+          </div>
+          <div class="split top_right">
+              <h1>B</h1>
+          <video id="vid_2" class = "videoInsert" src="GalDefSample.mp4" type="video/mp4" controls>
+          Your browser does not support the video tag.
+          </video></div>
+          <div class="split bottom_left">
+              <h1>C</h1>
+          <video id="vid_3" class="videoInsert" src="GalDefSample.mp4" type="video/mp4"controls>
+          Your browser does not support the video tag.
+          </video></div>
+          <div class="split bottom_right">
+              <h1>D</h1>
+          <video id="vid_4" class="videoInsert" src="GalDefSample.mp4" type="video/mp4" controls>
+            <source id = "vid4_src" >
+          Your browser does not support the video tag.
+          </video></div>
+          <h1 class="split_text bottom_right">D</h1>
+    </div>
+    <div id="Questions">
+        <h1>Questionnaire</h1>
+        <p>You watched videos A, B, C, and D. To play/pause a video to replay one, click on the video<br>
+            Please answer the following questions about the videos that you watched
+        </p>
+        <hr><br>
+        <p>In which video do you feel that the music <b>most</b> closely matches the gameplay?</p>
+        <select name="music_match" id="music_match">
+            <option id="match_A" value="A">A (Top left)</option>
+            <option id="match_B" value="B">B (Top right)</option>
+            <option id="match_C" value="C">C (Bottom left)</option>
+            <option id="match_D" value="D">D (Bottom right)</option>
+        </select><br>
+        <p>In which video did you feel the most immersed in the gameplay?</p>
+        <select name="immersion" id="immersion">
+            <option id="immersion_A" value = "A">A (Top left)</option>
+            <option id="immersion_B" value="B">B (Top right)</option>
+            <option id="immersion_C" value="C">C (Bottom left)</option>
+            <option id="immersion_D" value="D">D (Bottom right)</option>
+        </select><br>
+        <p>Which video's music did you enjoy the most?</p>
+        <select name="preference" id="preference">
+            <option id="preference_A" value="A">A (Top left)</option>
+            <option id="preference_B" value="B">B (Top right)</option>
+            <option id="preference_C" value="C">C (Bottom left)</option>
+            <option id="preference_D" value="D">D (Bottom right)</option>
+        </select>    
+    </div>
+    <div id="Demographic_information">
+        <h1>Demographic information</h1>
+        <label for="age">Please enter your age:<input type="text" id="age" name = "Age"></input></p>
+        <label for="pronouns">Please select pronouns:</label>
+        <select name="pronouns" id="pronouns">
+            <option value="NoAnswer">Please select one</option>
+            <option value="He/Him">He/Him</option>
+            <option value="She/Her">She/Her</option>
+            <option value="They/Them">They/Them</option>
+            <option value="Other">Other/Prefer not to say</option>
+        </select><br>
+<label for="hoursPerWeek">How often do you play video games in an average week?</label>
+        <select name="hoursPerWeek" id = "hoursPerWeek">
+            <option value = "NoAnswer">Please select one</option>
+            <option value = "0-4">0-4 hours per week</option>
+            <option value = "4-8">4-8 hours per week</option>
+            <option value = "8-12">8-12 hours per week</option>
+            <option value="12-16">12-16 hours per week</option>
+            <option value="16-20">12-16 hours per week</option>
+            <option value="20+">20+ hours per week</option>
+        </select>
+        <p>Please write any additional comments in the space below:</p>
+        <textarea name = "comments" id="comments"></textarea>
+    </div>
+    <div id="Submission">
+        <h3>Submit</h3>
+        <p>Thank you for your responses! Please press the "submit" button to submit responses<br>
+        Once responses are submitted, you may close your browser<br>
+    If you have any additional questions or comments, you may email them to <a href="mailto:cplut@sfu.ca">cplut@sfu.ca</a></p>
+        <button type="button" class = "button" onclick="submit_questionnaire()">Submit</button>
+    </div>
+</body>

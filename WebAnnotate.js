@@ -14,7 +14,8 @@ var condition;
 var overlay = false;
 var video_id;
 var post_online = false;
-var save=true;
+var save=false;
+var video_history = [];
 
 const labels=[0.25]
 const data = {
@@ -155,22 +156,13 @@ function lower_overlay(){
 }
 
 function build_csv(){
-    //Demographic information
-    var csv = "Student ID, Consent, Age, Pronouns, Weekly_hours\r\n";
-    var studentID = window.sessionStorage.getItem("StudentID");
-    var consent = window.sessionStorage.getItem("Consent");
-    var age = window.sessionStorage.getItem("Age");
-    var pronouns = window.sessionStorage.getItem("Pronouns");
-    var weekly_hours = window.sessionStorage.getItem("Weekly_hours");
-    var row = `${studentID}, ${consent}, ${age}, ${pronouns}, ${weekly_hours}\r\n`;
-    csv+=row;
-    
-    //Video and data information
-    csv+="Condition, Dimension, Video_ID\r\n";
-    row = `${condition}, ${dimension}, ${video_id}\r\n`;   
+    //Encode header data
+    var csv = "data_ID, Condition, Dimension, Video_ID\r\n";
+    var data_ID = window.sessionStorage.getItem("data_id");
+    var row = `${data_ID}, ${condition}, ${dimension}, ${video_id}\r\n`;
     csv+=row;
 
-    //Data
+    //Data (has header for specific data variables)
     affectData.forEach(function(row){
         csv+=row.join(',');
         csv+="\r\n";
@@ -233,6 +225,8 @@ function load_video() {
     }
     console.log(_video);
     video_id=_video.id;
+    video_history.push(video_id);
+    console.log("Added " + video_id +" to history");
     return _video;
 }
 
@@ -299,6 +293,12 @@ function keyPress(e) {
     }
 
 
+}
+
+function toQuestionnaire(){
+window.sessionStorage.setItem("Video_history", JSON.stringify(video_history));
+//console.log("Video history set :" + video_history);
+window.location.href ="questionnaire.html";
 }
 
 function capitalizeFirstLetter(string){return string.charAt(0).toUpperCase() + string.slice(1);}

@@ -52,15 +52,42 @@ h2{
 }
 #text{
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 45%;
+  left: 45%;
   font-size: large;
   color: white;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
+  transform: translate(-45%,-45%);
+  -ms-transform: translate(-45%,-45%);
   text-align: center;
 }
 img{
   vertical-align:middle
+}
+.split {
+  height: 45%;
+  width: 45%;
+  position: absolute;
+  z-index: 1;
+  overflow-x: hidden;
+  padding: 1px;
+  border:2px;
+  display:block;
+  overflow:hidden
+}
+.top_left{
+  top:0;
+  left:0
+}
+.top_right{
+  top:0;
+  right:0
+}
+.bottom_left{
+  bottom:0;
+  left:0
+}
+.bottom_right{
+  bottom:0;
+  right:0;
 }
 

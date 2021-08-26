@@ -1,7 +1,8 @@
 <title>GalDef Annotate</title>
-<meta http-equiv="Cache-control" content="No-Cache">
+
 <html scroll="no">
     <head>
+        <meta http-equiv="Cache-control" content="No-Cache">
         <link rel="stylesheet" href="annotate_style.css">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@3.4.3/dist/excellentexport.min.js"></script>
@@ -36,8 +37,9 @@
         </div>
     </div>
         <div class = "overlay" id = "finished">
-            <div id="text">All annotations complete! Thank you for your time<br>
-            You may now close this window
+            <div id="text">All annotations complete! Press the "Questionnaire" button to continue to the final questionnaire<hr>
+                (Note, if you don't see the questions, scroll down)<br>
+            <button type = "button" class="button" onclick="toQuestionnaire()">Questionnaire</button>
             </div>
         </div>
     </body>
