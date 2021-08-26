@@ -10,7 +10,7 @@
        <script src="WebAnnotate.js"></script>
 
     </head>
-    <body  onLoad="annotation_setup()">
+    <body  onLoad="load_page()">
         <div>
         <video id="annot_target" class="videoInsert" onplay="begin_annotate()" onpause="pause_annotate()" onended="end_annotate()">
             <source id = "annot_vid" src="" type="video/mp4">
@@ -19,20 +19,65 @@
 
           <canvas float = right id="affect_chart">
         </canvas>
-            <button id = "upload_file" value = "Go", onclick="post_CSV()">Upload</button>
+            <button id = "upload_file" type = "button" class = "button" onclick="post_CSV()">Upload</button>
         </div>
         <div class = "overlay" id = "begin">
-            <div id="text">Annoation software loaded
+            <div id="text"><p id = "annot_instructions">Please turn on speakers or headphones<br>
 
-            When you are ready, press the space bar to begin annotation</span>
+            When you are ready, press the space bar <img src="Space_Key_Light.png"> to begin annotation<br>
+        
+            To annotate, use the up <img src="Arrow_Up_Key_Light.png"> and down <img src="Arrow_Down_Key_Light.png"> arrow keys to indicate the level of _dimension</p>
+        </div>
         </div>
         <div class ="overlay" id = "between">
             <div id="text">Annotation recorded!
 
-            When you are ready, please press the space bar to begin your next annotation</p>
+            When you are ready, please press the space bar <img src="Space_Key_Light.png"> to begin your next annotation</p>
         </div>
+    </div>
         <div class = "overlay" id = "finished">
-            <div id="text">All annotations complete! Thank you for your time</<div>
+            <div id="text">All annotations complete! Thank you for your time<br>
+            You may now close this window
+            </div>
         </div>
     </body>
     </html>
+
+    
+<template id="valence_instructions">
+    <h2>Valence</h2>
+    <p>Valence is sometimes called "pleasantness", and is associated with pleasure or attractiveness<br>
+        Events that are desirable, or that we want, are positively valenced, and events that are undesirable, that we don't want, are negatively valenced</p>
+    <p>Valence is independent of the activity level<br>
+        Excitement is an active positively valenced emotion, while satisfaction is an inactive positively valenced emotion<br>
+        Nervousness is an active negatively valenced emotion, while boredom is an inactive negatively valenced emotion</p>
+    <p>Examples of high-valence emotions include joy, excitement, satisfaction, or triumph<br>Examples of low-valence emotions include sadness, fear, anger, or disgust</p>
+    <p>Examples of high-valence activities in games may be passing an opponent in a driving game, finishing a quest in an RPG, and landing a combo in a fighting game<br>
+        Examples of low-valence activities in games may be being passed in a driving game, losing a unit in a tactics game, and winning an objective in a MOBA </p>
+</template>
+
+<template id="arousal_instructions">
+    <h2>Arousal</h2>
+    <p>Arousal is an emotional dimension associated with energy or activity</p>
+    <p>Arousal is a state of heightened activity, which may be pleasant or unpleasant. The level of arousal describes the activity or energy of an emotion</p>
+    <p>Exhuberation/Joy is a pleasant high-arousal emotion, while hate is an unpleasant high-arousal emotion - both are highly energetic</p>
+    <p>Contentment is a pleasant low-arousal emotion, while guilt is an unpleasant low-arousal emotion - both are low-energy</p>
+    <p>Examples of high-arousal emotions include excitement, anger, or triumph<br>
+        Examples of low-arousal emotions include satisfaction, depression, exhaustion, or relaxation</p>
+    <p>In games, arousal is directly linked to the activity levle of the game, or the amount of things going on</p>    
+</template>
+
+<template id="tension_instructions">
+    <h2>Tension</h2>
+    <p>Tension is an emotional dimension associated with events in the future. Tension may be pleasant or unpleasant</p> 
+    <p>Excitement is a pleasant, high-tension emotion - something that we want might be coming<br>
+    Satisfaction is a pleasant, low-tension emotion - something we wanted has happened<br>
+    Fear is an example of an unpleasant, high-tension emotion - something that we don't want might be coming<br>
+    Sadness is an example of low negative tension - something we didn't want has happened</p>
+    <p>Examples of high-tension emotions include fear, excitement, or unease<br>
+        Examples of low-tension emotions include satisfaction, sadness, and joy</p>
+    <p>
+        Examples of high-tension situations in games may be playing X-Com, when a shell is coming in Mario Kart, or when you thing your opponent is about to use their full meter in a fighting game<br>
+        Examples of low-tension situations in games may be being comfortably in the lead in a driving game, resting at a bonfire in Dark Souls, or predicting a checkmate in chess.
+    </p>
+</template>

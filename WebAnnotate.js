@@ -7,12 +7,14 @@ var chart;
 var affectData = [["Time","Rating"]];
 var playing = false;
 var vid = document.getElementById("annot_target");
-var annotating=true;
-var myVideo ="";
+var video;
 var dimension = window.sessionStorage.getItem("Dimension");
 var conditions=["Linear", "Adaptive", "Generative", "None"];
 var condition;
 var overlay = false;
+var video_id;
+var post_online = false;
+var save=true;
 
 const labels=[0.25]
 const data = {
@@ -35,19 +37,68 @@ const config = {
     }
 };
 
+//Runs first time to set up overlays with dimension text
+function load_page(){
+    setup_overlays();
+    annotation_setup();
+}
+
 //Setup
 function annotation_setup() {
+    reset_variables();
+
+    setup_chart();
+
     raiseOverlay(conditions.length);
     condition = select_condition();
     console.log("Condition =" + condition);
     console.log("Dimension = " + dimension);
+
+    let str = document.getElementById("annot_instructions").innerHTML;
+    document.getElementById("annot_instructions").innerHTML=str.replaceAll("_dimension", dimension);
+
     console.log("Starting annotation");
     vid = document.getElementById("annot_target");
-    var toVideo = "GalDefSample.mp4";
-    vid.src=toVideo;
-    setup_chart();
+    
+    video = load_video();
+    vid.src=video.src;
+
+    //!!!!!!!!Remove once we have videos, overrides video load from code
+    vid.src="GalDefSample.mp4"; //!!!!!!!!!!!!Loads sample! Hard Coded! Remove when we have videos!
+
+    vid.load();
 }
+
+function setup_overlays(){
+    var clon = get_dimension_text();
+
+    document.getElementById("annot_instructions").appendChild(clon);
+   // document.getElementById("between").appendChild(clon);
+    //document.getElementById("finished").appendChild(clon);
+}
+
+function get_dimension_text(){
+    var temp = document.getElementById("valence_instructions");
+    if(dimension=="valence"){
+        temp = document.getElementById("valence_instructions");
+    }
+    else if (dimension=="arousal")
+    {
+        temp = document.getElementById("arousal_instructions");
+    }
+    else if (dimension=="tension"){
+        temp = document.getElementById("tension_instructions");
+    }
+    else {
+        console.log("Dimension coded wrong");
+    }
+
+    var clon = temp.content.cloneNode(true);
+    return clon;
+}
+
 function setup_chart() {
+    if(chart!=null){chart.destroy();}
     chart = new Chart(document.getElementById('affect_chart'), config);
 }
 
@@ -70,6 +121,20 @@ function pause_annotate(){
     vid.pause();
 }
 
+
+function end_annotate(){
+    playing=false;
+    //First, export the annotation to the php file
+    export_csv("GalDef_Annot");
+
+    if(conditions.length>0){
+        annotation_setup();
+    }
+    else{
+        raiseOverlay(0);
+    }
+}
+
 function raiseOverlay(remaining_conditions){
     if(remaining_conditions==4){
         document.getElementById("begin").style ="display:block";
@@ -78,6 +143,7 @@ function raiseOverlay(remaining_conditions){
         document.getElementById("between").style= "display:block";
     }
     else{
+        console.log("Annotations finished!");
         document.getElementById("finished").style="display:block";
     }
 }
@@ -88,39 +154,48 @@ function lower_overlay(){
     document.getElementById("finished").style="display:none";
 }
 
-function end_annotate(){
-    //First, export the annotation to the php file
-    annotating=false;
-    export_csv("Annotate_GalDef", affectData, ",", "Annotate_GalDef");
-}
+function build_csv(){
+    //Demographic information
+    var csv = "Student ID, Consent, Age, Pronouns, Weekly_hours\r\n";
+    var studentID = window.sessionStorage.getItem("StudentID");
+    var consent = window.sessionStorage.getItem("Consent");
+    var age = window.sessionStorage.getItem("Age");
+    var pronouns = window.sessionStorage.getItem("Pronouns");
+    var weekly_hours = window.sessionStorage.getItem("Weekly_hours");
+    var row = `${studentID}, ${consent}, ${age}, ${pronouns}, ${weekly_hours}\r\n`;
+    csv+=row;
+    
+    //Video and data information
+    csv+="Condition, Dimension, Video_ID\r\n";
+    row = `${condition}, ${dimension}, ${video_id}\r\n`;   
+    csv+=row;
 
-const export_csv = (arrayHeader, data, delimiter, fileName) => {
-    var csv = '\"';
-    csv+=arrayHeader;
-    csv+=vid.baseURI;
-    csv+="\r\n";
-    data.forEach(function(row) {
-        csv += row.join(',');
-        csv += "\r\n";
+    //Data
+    affectData.forEach(function(row){
+        csv+=row.join(',');
+        csv+="\r\n";
     });
 
+    return csv;
+}
+
+const export_csv = (fileName) => {
+    var csv=build_csv();
+
+    if(save){
     let hiddenElement = document.createElement('a');
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
     hiddenElement.target = '_blank';
     hiddenElement.download = fileName + '.csv';
-    //hiddenElement.click();    !!!!!!!For now we don't save, maybe add.
+    hiddenElement.click();
+    }
+    if(post_online){
+        post_CSV(csv);
+    }
 }
 
-function post_CSV () {
+function post_CSV (csv) {
     console.log("Posting CSV");
-    var csv="Timestamp,Annotation\r\n"
-    //First, do all of the data stuff
-    csv+="\r\n";
-    affectData.forEach(function(row) {
-        csv += row.join(",");
-        csv += "\r\n";
-    });
-
 
     // (A) CREATE BLOB OBJECT
     var myBlob = new Blob([csv], {type: "text/csv"});
@@ -139,12 +214,34 @@ function post_CSV () {
     xhr.send(data);
   }
 
-
-
-
-//Load video and begin time-code watching
+//Load video and set video_id
 function load_video() {
+    var whichVideo = Math.floor(Math.random()*10);
+    console.log(`WhichVideo = ${whichVideo}, Condition=${condition}`);
+    var _video;
+    if (condition == "Linear") {
+        _video = linear_videos[whichVideo];
+    }
+    else if (condition == "Adaptive") {
+        _video = adaptive_videos[whichVideo];
+    }
+    else if (condition == "Generative"){
+        _video = generative_videos[whichVideo];
+    }
+    else if (condition=="None"){
+        _video = none_videos[whichVideo];
+    }
+    console.log(_video);
+    video_id=_video.id;
+    return _video;
+}
 
+function reset_variables(){
+    time=0.0;
+    annot=0.0
+    affectData=[["Timestamp", "Rating"]];
+    playing = false;
+    change=false;
 }
 
 //Every .25 seconds, record the current level of affect dimension into a list w. timecode
@@ -164,7 +261,7 @@ function annotate_video() {
 }
 
 function update_chart() {
-    console.log("Time:" + time + ", annot: "+annot);
+    //console.log("Time:" + time + ", annot: "+annot);
     affectData.push([time, annot])
     let all_labels=data.labels;
     all_labels.push(time);
@@ -192,6 +289,9 @@ function keyPress(e) {
                 begin_annotate();
             }
             else{pause_annotate();}
+        }
+        else if (e.code=="Backquote"){
+            end_annotate();
         }
 
         annot += toChange;

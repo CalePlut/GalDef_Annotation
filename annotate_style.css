@@ -14,7 +14,7 @@ div {
     height:auto;
 }
 .overlay {
-  /*position: fixed; /* Sit on top of the page content */
+  position: fixed; /* Sit on top of the page content */
   display: none; /* Hidden by default */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
@@ -22,7 +22,7 @@ div {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  background-color: rgba(0,0,0,0.75); /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
 }
@@ -54,9 +54,13 @@ h2{
   position: absolute;
   top: 50%;
   left: 50%;
-  font-size: 50px;
+  font-size: large;
   color: white;
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
+  text-align: center;
+}
+img{
+  vertical-align:middle
 }
 

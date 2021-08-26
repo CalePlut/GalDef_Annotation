@@ -1,557 +1,251 @@
-var linear_videos_valence = [
+var linear_videos = [
     {   
-        "id":"L_V_1",
+        "id":"Linear_1",
         "condition":"Linear",
         "number":1,
-        "src":"valence_1_source"
+        "src":"linear_1_source"
     },
     {   
-        "id":"L_V_2",
+        "id":"Linear_2",
         "condition":"Linear",
         "number":2,
-        "src":"valence_2_source"
+        "src":"linear_2_source"
     },
     {   
-        "id":"L_V_3",
+        "id":"Linear_3",
         "condition":"Linear",
         "number":3,
-        "src":"valence_3_source"
+        "src":"linear_3_source"
     },
     {   
-        "id":"L_V_4",
+        "id":"Linear_4",
         "condition":"Linear",
         "number":4,
-        "src":"valence_4_source"
+        "src":"linear_4_source"
     },    
     {   
-        "id":"L_V_5",
+        "id":"Linear_5",
         "condition":"Linear",
         "number":5,
-        "src":"valence_5_source"
+        "src":"linear_5_source"
     },
     {   
-        "id":"L_V_6",
+        "id":"Linear_6",
         "condition":"Linear",
         "number":6,
-        "src":"valence_6_source"
+        "src":"linear_6_source"
     },
     {   
-        "id":"L_V_7",
+        "id":"Linear_7",
         "condition":"Linear",
         "number":7,
-        "src":"valence_7_source"
+        "src":"linear_7_source"
     },
     {   
-        "id":"L_V_8",
+        "id":"Linear_8",
         "condition":"Linear",
         "number":8,
-        "src":"valence_8_source"
+        "src":"linear_8_source"
     },
     {   
-        "id":"L_V_9",
+        "id":"Linear_9",
         "condition":"Linear",
         "number":9,
-        "src":"valence_9_source"
+        "src":"linear_9_source"
     },
     {   
-        "id":"L_V_10",
+        "id":"Linear_10",
         "condition":"Linear",
         "number":10,
-        "src":"valence_10_source"
+        "src":"linear_10_source"
     }]
-    var linear_videos_arousal=[   
+    var adaptive_videos=[   
     {   
-        "id":"L_A_1",
-        "condition":"Linear",
+        "id":"Adaptive_1",
+        "condition":"Adaptive",
         "number":1,
-        "src":"arousal_1_source"
+        "src":"adaptive_1_source"
     },
     {   
-        "id":"L_A_2",
-        "condition":"Linear",
+        "id":"Adaptive_2",
+        "condition":"Adaptive",
         "number":2,
-        "src":"arousal_2_source"
+        "src":"adaptive_2_source"
     },
     {   
-        "id":"L_A_3",
-        "condition":"Linear",
+        "id":"Adaptive_3",
+        "condition":"Adaptive",
         "number":3,
-        "src":"arousal_3_source"
+        "src":"adaptive_3_source"
     },
     {   
-        "id":"L_A_4",
-        "condition":"Linear",
+        "id":"Adaptive_4",
+        "condition":"Adaptive",
         "number":4,
-        "src":"arousal_4_source"
+        "src":"adaptive_4_source"
     },    
     {   
-        "id":"L_A_5",
-        "condition":"Linear",
+        "id":"Adaptive_5",
+        "condition":"Adaptive",
         "number":5,
-        "src":"arousal_5_source"
+        "src":"adaptive_5_source"
     },
     {   
-        "id":"L_A_6",
-        "condition":"Linear",
+        "id":"Adaptive_6",
+        "condition":"Adaptive",
         "number":6,
-        "src":"arousal_6_source"
+        "src":"adaptive_6_source"
     },
     {   
-        "id":"L_A_7",
-        "condition":"Linear",
+        "id":"Adaptive_7",
+        "condition":"Adaptive",
         "number":7,
-        "src":"arousal_7_source"
+        "src":"adaptive_7_source"
     },
     {   
-        "id":"L_A_8",
-        "condition":"Linear",
+        "id":"Adaptive_8",
+        "condition":"Adaptive",
         "number":8,
-        "src":"arousal_8_source"
+        "src":"adaptive_8_source"
     },
     {   
-        "id":"L_A_9",
-        "condition":"Linear",
+        "id":"Adaptive_9",
+        "condition":"Adaptive",
         "number":9,
-        "src":"arousal_9_source"
+        "src":"adaptive_9_source"
     },
     {   
-        "id":"L_A_10",
-        "condition":"Linear",
+        "id":"Adaptive_10",
+        "condition":"Adaptive",
         "number":10,
-        "src":"arousal_10_source"
+        "src":"adaptive_10_source"
     }
 ]
-var linear_videos_tension=[
+var generative_videos=[
     {   
-        "id":"L_T_1",
-        "condition":"Linear",
+        "id":"Generative_1",
+        "condition":"Generative",
         "number":1,
-        "src":"tension_1_source"
+        "src":"generative_1_source"
     },
     {   
-        "id":"L_T_2",
-        "condition":"Linear",
+        "id":"Generative_2",
+        "condition":"Generative",
         "number":2,
-        "src":"tension_2_source"
+        "src":"generative_2_source"
     },
     {   
-        "id":"L_T_3",
-        "condition":"Linear",
+        "id":"Generative_3",
+        "condition":"Generative",
         "number":3,
-        "src":"tension_3_source"
+        "src":"generative_3_source"
     },
     {   
-        "id":"L_T_4",
-        "condition":"Linear",
+        "id":"Generative_4",
+        "condition":"Generative",
         "number":4,
-        "src":"tension_4_source"
+        "src":"generative_4_source"
     },    
     {   
-        "id":"L_T_5",
-        "condition":"Linear",
+        "id":"Generative_5",
+        "condition":"Generative",
         "number":5,
-        "src":"tension_5_source"
+        "src":"generative_5_source"
     },
     {   
-        "id":"L_T_6",
-        "condition":"Linear",
+        "id":"Generative_6",
+        "condition":"Generative",
         "number":6,
-        "src":"tension_6_source"
+        "src":"generative_6_source"
     },
     {   
-        "id":"L_T_7",
-        "condition":"Linear",
+        "id":"Generative_7",
+        "condition":"Generative",
         "number":7,
-        "src":"tension_7_source"
+        "src":"generative_7_source"
     },
     {   
-        "id":"L_T_8",
-        "condition":"Linear",
+        "id":"Generative_8",
+        "condition":"Generative",
         "number":8,
-        "src":"tension_8_source"
+        "src":"generative_8_source"
     },
     {   
-        "id":"L_T_9",
-        "condition":"Linear",
+        "id":"Generative_9",
+        "condition":"Generative",
         "number":9,
-        "src":"tension_9_source"
+        "src":"generative_9_source"
     },
     {   
-        "id":"L_T_10",
-        "condition":"Linear",
+        "id":"Generative_10",
+        "condition":"Generative",
         "number":10,
-        "src":"tension_10_source"
+        "src":"generative_10_source"
     }
 ]
-var adaptive_videos_valence = [
+var none_videos=[
     {   
-        "id":"L_V_1",
-        "condition":"Adaptive",
+        "id":"None_1",
+        "condition":"None",
         "number":1,
-        "src":"valence_1_source"
+        "src":"none_1_source"
     },
     {   
-        "id":"L_V_2",
-        "condition":"Adaptive",
+        "id":"None_2",
+        "condition":"None",
         "number":2,
-        "src":"valence_2_source"
+        "src":"none_2_source"
     },
     {   
-        "id":"L_V_3",
-        "condition":"Adaptive",
+        "id":"None_3",
+        "condition":"None",
         "number":3,
-        "src":"valence_3_source"
+        "src":"none_3_source"
     },
     {   
-        "id":"L_V_4",
-        "condition":"Adaptive",
+        "id":"None_4",
+        "condition":"None",
         "number":4,
-        "src":"valence_4_source"
+        "src":"none_4_source"
     },    
     {   
-        "id":"L_V_5",
-        "condition":"Adaptive",
+        "id":"None_5",
+        "condition":"None",
         "number":5,
-        "src":"valence_5_source"
+        "src":"none_5_source"
     },
     {   
-        "id":"L_V_6",
-        "condition":"Adaptive",
+        "id":"None_6",
+        "condition":"None",
         "number":6,
-        "src":"valence_6_source"
+        "src":"none_6_source"
     },
     {   
-        "id":"L_V_7",
-        "condition":"Adaptive",
+        "id":"None_7",
+        "condition":"None",
         "number":7,
-        "src":"valence_7_source"
+        "src":"none_7_source"
     },
     {   
-        "id":"L_V_8",
-        "condition":"Adaptive",
+        "id":"None_8",
+        "condition":"None",
         "number":8,
-        "src":"valence_8_source"
+        "src":"none_8_source"
     },
     {   
-        "id":"L_V_9",
-        "condition":"Adaptive",
+        "id":"None_9",
+        "condition":"None",
         "number":9,
-        "src":"valence_9_source"
+        "src":"none_9_source"
     },
     {   
-        "id":"L_V_10",
-        "condition":"Adaptive",
+        "id":"None_10",
+        "condition":"None",
         "number":10,
-        "src":"valence_10_source"
-    }]
-    var adaptive_videos_arousal=[   
-    {   
-        "id":"L_A_1",
-        "condition":"Adaptive",
-        "number":1,
-        "src":"arousal_1_source"
-    },
-    {   
-        "id":"L_A_2",
-        "condition":"Adaptive",
-        "number":2,
-        "src":"arousal_2_source"
-    },
-    {   
-        "id":"L_A_3",
-        "condition":"Adaptive",
-        "number":3,
-        "src":"arousal_3_source"
-    },
-    {   
-        "id":"L_A_4",
-        "condition":"Adaptive",
-        "number":4,
-        "src":"arousal_4_source"
-    },    
-    {   
-        "id":"L_A_5",
-        "condition":"Adaptive",
-        "number":5,
-        "src":"arousal_5_source"
-    },
-    {   
-        "id":"L_A_6",
-        "condition":"Adaptive",
-        "number":6,
-        "src":"arousal_6_source"
-    },
-    {   
-        "id":"L_A_7",
-        "condition":"Adaptive",
-        "number":7,
-        "src":"arousal_7_source"
-    },
-    {   
-        "id":"L_A_8",
-        "condition":"Adaptive",
-        "number":8,
-        "src":"arousal_8_source"
-    },
-    {   
-        "id":"L_A_9",
-        "condition":"Adaptive",
-        "number":9,
-        "src":"arousal_9_source"
-    },
-    {   
-        "id":"L_A_10",
-        "condition":"Adaptive",
-        "number":10,
-        "src":"arousal_10_source"
+        "src":"none_10_source"
     }
 ]
-var adaptive_videos_tension=[
-    {   
-        "id":"L_T_1",
-        "condition":"Adaptive",
-        "number":1,
-        "src":"tension_1_source"
-    },
-    {   
-        "id":"L_T_2",
-        "condition":"Adaptive",
-        "number":2,
-        "src":"tension_2_source"
-    },
-    {   
-        "id":"L_T_3",
-        "condition":"Adaptive",
-        "number":3,
-        "src":"tension_3_source"
-    },
-    {   
-        "id":"L_T_4",
-        "condition":"Adaptive",
-        "number":4,
-        "src":"tension_4_source"
-    },    
-    {   
-        "id":"L_T_5",
-        "condition":"Adaptive",
-        "number":5,
-        "src":"tension_5_source"
-    },
-    {   
-        "id":"L_T_6",
-        "condition":"Adaptive",
-        "number":6,
-        "src":"tension_6_source"
-    },
-    {   
-        "id":"L_T_7",
-        "condition":"Adaptive",
-        "number":7,
-        "src":"tension_7_source"
-    },
-    {   
-        "id":"L_T_8",
-        "condition":"Adaptive",
-        "number":8,
-        "src":"tension_8_source"
-    },
-    {   
-        "id":"L_T_9",
-        "condition":"Adaptive",
-        "number":9,
-        "src":"tension_9_source"
-    },
-    {   
-        "id":"L_T_10",
-        "condition":"Adaptive",
-        "number":10,
-        "src":"tension_10_source"
-    }
-]
-var generative_videos_valence = [
-    {   
-        "id":"L_V_1",
-        "condition":"Generative",
-        "number":1,
-        "src":"valence_1_source"
-    },
-    {   
-        "id":"L_V_2",
-        "condition":"Generative",
-        "number":2,
-        "src":"valence_2_source"
-    },
-    {   
-        "id":"L_V_3",
-        "condition":"Generative",
-        "number":3,
-        "src":"valence_3_source"
-    },
-    {   
-        "id":"L_V_4",
-        "condition":"Generative",
-        "number":4,
-        "src":"valence_4_source"
-    },    
-    {   
-        "id":"L_V_5",
-        "condition":"Generative",
-        "number":5,
-        "src":"valence_5_source"
-    },
-    {   
-        "id":"L_V_6",
-        "condition":"Generative",
-        "number":6,
-        "src":"valence_6_source"
-    },
-    {   
-        "id":"L_V_7",
-        "condition":"Generative",
-        "number":7,
-        "src":"valence_7_source"
-    },
-    {   
-        "id":"L_V_8",
-        "condition":"Generative",
-        "number":8,
-        "src":"valence_8_source"
-    },
-    {   
-        "id":"L_V_9",
-        "condition":"Generative",
-        "number":9,
-        "src":"valence_9_source"
-    },
-    {   
-        "id":"L_V_10",
-        "condition":"Generative",
-        "number":10,
-        "src":"valence_10_source"
-    }]
-    var generative_videos_arousal=[   
-    {   
-        "id":"L_A_1",
-        "condition":"Generative",
-        "number":1,
-        "src":"arousal_1_source"
-    },
-    {   
-        "id":"L_A_2",
-        "condition":"Generative",
-        "number":2,
-        "src":"arousal_2_source"
-    },
-    {   
-        "id":"L_A_3",
-        "condition":"Generative",
-        "number":3,
-        "src":"arousal_3_source"
-    },
-    {   
-        "id":"L_A_4",
-        "condition":"Generative",
-        "number":4,
-        "src":"arousal_4_source"
-    },    
-    {   
-        "id":"L_A_5",
-        "condition":"Generative",
-        "number":5,
-        "src":"arousal_5_source"
-    },
-    {   
-        "id":"L_A_6",
-        "condition":"Generative",
-        "number":6,
-        "src":"arousal_6_source"
-    },
-    {   
-        "id":"L_A_7",
-        "condition":"Generative",
-        "number":7,
-        "src":"arousal_7_source"
-    },
-    {   
-        "id":"L_A_8",
-        "condition":"Generative",
-        "number":8,
-        "src":"arousal_8_source"
-    },
-    {   
-        "id":"L_A_9",
-        "condition":"Generative",
-        "number":9,
-        "src":"arousal_9_source"
-    },
-    {   
-        "id":"L_A_10",
-        "condition":"Generative",
-        "number":10,
-        "src":"arousal_10_source"
-    }
-]
-var generative_videos_tension=[
-    {   
-        "id":"L_T_1",
-        "condition":"Generative",
-        "number":1,
-        "src":"tension_1_source"
-    },
-    {   
-        "id":"L_T_2",
-        "condition":"Generative",
-        "number":2,
-        "src":"tension_2_source"
-    },
-    {   
-        "id":"L_T_3",
-        "condition":"Generative",
-        "number":3,
-        "src":"tension_3_source"
-    },
-    {   
-        "id":"L_T_4",
-        "condition":"Generative",
-        "number":4,
-        "src":"tension_4_source"
-    },    
-    {   
-        "id":"L_T_5",
-        "condition":"Generative",
-        "number":5,
-        "src":"tension_5_source"
-    },
-    {   
-        "id":"L_T_6",
-        "condition":"Generative",
-        "number":6,
-        "src":"tension_6_source"
-    },
-    {   
-        "id":"L_T_7",
-        "condition":"Generative",
-        "number":7,
-        "src":"tension_7_source"
-    },
-    {   
-        "id":"L_T_8",
-        "condition":"Generative",
-        "number":8,
-        "src":"tension_8_source"
-    },
-    {   
-        "id":"L_T_9",
-        "condition":"Generative",
-        "number":9,
-        "src":"tension_9_source"
-    },
-    {   
-        "id":"L_T_10",
-        "condition":"Generative",
-        "number":10,
-        "src":"tension_10_source"
-    }
-]
+
+
 
 

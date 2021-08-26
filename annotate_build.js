@@ -85,8 +85,16 @@ window.location.href ="annotate.html";
 }
 
 function save_data(){
+var age = document.getElementById("age").value;
+var pronouns = document.getElementById("pronouns").value;
+var weekly_hours=document.getElementById("hoursPerWeek").value;
+
 window.sessionStorage.setItem("StudentID", StudentID);
 window.sessionStorage.setItem("Consent", consent);
+window.sessionStorage.setItem("Age", age);
+window.sessionStorage.setItem("Pronouns", pronouns);
+window.sessionStorage.setItem("Weekly_hours", weekly_hours)
 window.sessionStorage.setItem("Dimension", dimension);
+
 
 }
