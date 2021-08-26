@@ -2,6 +2,7 @@ var save = true;
 var post_online = false;
 var video_history = JSON.parse(window.sessionStorage.getItem("Video_history"));
 var videos_exist = false;
+var data_ID
 
 const load_questionnaire = () => {
     populate_videos();
@@ -9,13 +10,14 @@ const load_questionnaire = () => {
 }
 
 function submit_questionnaire() {
-    export_q_csv();
+    var fileName=`GalDef_Question_${data_ID}`;
+    export_q_csv(fileName);
 }
 
 function build_q_csv() {
     //Encode header data
     var csv = "data_ID, StudentID, Consent, Age, Pronouns, Weekly_hours, Dimension\r\n";
-    var data_ID = window.sessionStorage.getItem("data_id");
+    data_ID = window.sessionStorage.getItem("data_id");
     var studentID = window.sessionStorage.getItem("StudentID");
     var consent = window.sessionStorage.getItem("Consent");
     var dimension = window.sessionStorage.getItem("Dimension");

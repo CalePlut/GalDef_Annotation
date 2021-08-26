@@ -126,7 +126,8 @@ function pause_annotate(){
 function end_annotate(){
     playing=false;
     //First, export the annotation to the php file
-    export_csv("GalDef_Annot");
+    var name = `GalDef_Annot_${data_ID}`;
+    export_csv(name);
 
     if(conditions.length>0){
         annotation_setup();
