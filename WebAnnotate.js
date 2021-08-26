@@ -10,6 +10,9 @@ var vid = document.getElementById("annot_target");
 var annotating=true;
 var myVideo ="";
 var dimension = window.sessionStorage.getItem("Dimension");
+var conditions=["Linear", "Adaptive", "Generative", "None"];
+var condition;
+var overlay = false;
 
 const labels=[0.25]
 const data = {
@@ -31,23 +34,33 @@ const config = {
         padding:20       
     }
 };
- 
+
 //Setup
 function annotation_setup() {
+    raiseOverlay(conditions.length);
+    condition = select_condition();
+    console.log("Condition =" + condition);
     console.log("Dimension = " + dimension);
     console.log("Starting annotation");
     vid = document.getElementById("annot_target");
-    var toVideo = "GalDefLose1.mp4";
-    console.log("toVideo = " + toVideo);
+    var toVideo = "GalDefSample.mp4";
     vid.src=toVideo;
-    console.log("Video = " +vid.src + ", attempted " + toVideo);
     setup_chart();
 }
 function setup_chart() {
     chart = new Chart(document.getElementById('affect_chart'), config);
 }
 
+//Returns the selected condition and prunes list
+function select_condition(){
+    var which_condition = Math.floor(Math.random()*conditions.length);
+    var condition = conditions[which_condition];
+    conditions.splice(which_condition, 1);
+    return condition;
+}
+
 function begin_annotate(){
+    lower_overlay();
     playing=true;
     vid.play();
     annotate_video();
@@ -56,9 +69,28 @@ function pause_annotate(){
     playing=false;
     vid.pause();
 }
+
+function raiseOverlay(remaining_conditions){
+    if(remaining_conditions==4){
+        document.getElementById("begin").style ="display:block";
+    }
+    else if (remaining_conditions>0){
+        document.getElementById("between").style= "display:block";
+    }
+    else{
+        document.getElementById("finished").style="display:block";
+    }
+}
+
+function lower_overlay(){
+    document.getElementById("begin").style ="display:none";
+    document.getElementById("between").style= "display:none";
+    document.getElementById("finished").style="display:none";
+}
+
 function end_annotate(){
+    //First, export the annotation to the php file
     annotating=false;
-    console.log("Ending annotation");
     export_csv("Annotate_GalDef", affectData, ",", "Annotate_GalDef");
 }
 

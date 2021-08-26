@@ -6,7 +6,9 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@3.4.3/dist/excellentexport.min.js"></script>
        <!-- <script src="https://www.caleplut.com/GalDef/WebAnnotate.0.0.1.js"></script>-->
+       <script src="videoClips.js"></script>
        <script src="WebAnnotate.js"></script>
+
     </head>
     <body  onLoad="annotation_setup()">
         <div>
@@ -18,6 +20,19 @@
           <canvas float = right id="affect_chart">
         </canvas>
             <button id = "upload_file" value = "Go", onclick="post_CSV()">Upload</button>
+        </div>
+        <div class = "overlay" id = "begin">
+            <div id="text">Annoation software loaded
+
+            When you are ready, press the space bar to begin annotation</span>
+        </div>
+        <div class ="overlay" id = "between">
+            <div id="text">Annotation recorded!
+
+            When you are ready, please press the space bar to begin your next annotation</p>
+        </div>
+        <div class = "overlay" id = "finished">
+            <div id="text">All annotations complete! Thank you for your time</<div>
         </div>
     </body>
     </html>
