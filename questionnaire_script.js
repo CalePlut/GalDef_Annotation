@@ -1,5 +1,5 @@
-var save = true;
-var post_online = false;
+var save = false;
+var post_online = true;
 var video_history = JSON.parse(window.sessionStorage.getItem("Video_history"));
 var videos_exist = false;
 var data_ID
@@ -66,7 +66,7 @@ function post_CSV(csv) {
 
     // (C) AJAX UPLOAD TO SERVER
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "uploadCSV.php");
+    xhr.open("POST", "upload_quest.php");
     xhr.onload = function () {
         console.log(this.status);
         console.log(this.response);

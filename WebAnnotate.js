@@ -9,11 +9,12 @@ var playing = false;
 var vid = document.getElementById("annot_target");
 var video;
 var dimension = window.sessionStorage.getItem("Dimension");
+var data_ID=window.sessionStorage.getItem("data_id");
 var conditions=["Linear", "Adaptive", "Generative", "None"];
 var condition;
 var overlay = false;
 var video_id;
-var post_online = false;
+var post_online = true;
 var save=false;
 var video_history = [];
 
@@ -199,7 +200,7 @@ function post_CSV (csv) {
 
     // (C) AJAX UPLOAD TO SERVER
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "uploadCSV.php");
+    xhr.open("POST", "upload_annot.php");
     xhr.onload = function () {
       console.log(this.status);
       console.log(this.response);

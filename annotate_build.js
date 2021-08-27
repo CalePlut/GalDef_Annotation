@@ -61,7 +61,7 @@ function scrollFromConsent(){
         consent=true;
         StudentID=document.getElementById("studentID").value;
         Consent_to_Instructions();
-        document.getElementById("Demographic_information").scrollIntoView(true);
+        document.getElementById("Phase1_Instructions").scrollIntoView(true);
     }
     else{
         window.alert("Please accept consent information (This may not be your fault, this is supposed to be impossible. Try re-loading the page)");
