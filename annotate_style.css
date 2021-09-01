@@ -61,7 +61,9 @@ h2{
   text-align: center;
 }
 img{
-  vertical-align:middle
+  vertical-align:middle;
+  max-width: 100%;
+  max-height: auto
 }
 .split {
   height: 45%;

@@ -1,5 +1,8 @@
 document.addEventListener('keydown', keyPress)
 
+var post_online = false;
+var save=false;
+
 var change = false;
 var time = 0.0;
 var annot = 0.0;
@@ -14,8 +17,7 @@ var conditions=["Linear", "Adaptive", "Generative", "None"];
 var condition;
 var overlay = false;
 var video_id;
-var post_online = true;
-var save=false;
+
 var video_history = [];
 
 const labels=[0.25]
@@ -66,7 +68,7 @@ function annotation_setup() {
     vid.src=video.src;
 
     //!!!!!!!!Remove once we have videos, overrides video load from code
-    vid.src="GalDefSample.mp4"; //!!!!!!!!!!!!Loads sample! Hard Coded! Remove when we have videos!
+    vid.src="Sample_1.mp4"; //!!!!!!!!!!!!Loads sample! Hard Coded! Remove when we have videos!
 
     vid.load();
 }

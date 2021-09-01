@@ -1,5 +1,5 @@
 var save = false;
-var post_online = true;
+var post_online = false;
 var video_history = JSON.parse(window.sessionStorage.getItem("Video_history"));
 var videos_exist = false;
 var data_ID
