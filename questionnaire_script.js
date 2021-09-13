@@ -16,8 +16,9 @@ function submit_questionnaire() {
 
 function build_q_csv() {
     //Encode header data
-    var csv = "data_ID, StudentID, Consent, Age, Pronouns, Weekly_hours, Dimension\r\n";
+    var csv = "data_ID, Codeword, StudentID, Consent, Age, Pronouns, Weekly_hours, Dimension\r\n";
     data_ID = window.sessionStorage.getItem("data_id");
+    var codeword=window.sessionStorage.getItem("Codeword");
     var studentID = window.sessionStorage.getItem("StudentID");
     var consent = window.sessionStorage.getItem("Consent");
     var dimension = window.sessionStorage.getItem("Dimension");
@@ -25,7 +26,7 @@ function build_q_csv() {
     var pronouns = document.getElementById("pronouns").value;
     var weekly_hours = document.getElementById("hoursPerWeek").value;
 
-    var row = `${data_ID}, ${studentID}, ${consent}, ${age}, ${pronouns}, ${weekly_hours}, ${dimension} \r\n`;
+    var row = `${data_ID}, ${codeword}, ${studentID}, ${consent}, ${age}, ${pronouns}, ${weekly_hours}, ${dimension} \r\n`;
     csv += row;
 
     csv += "Music_match, Immersion, Preference, Comments\r\n";

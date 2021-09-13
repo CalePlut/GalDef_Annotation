@@ -3,122 +3,62 @@ var linear_videos = [
         "id":"Linear_1",
         "condition":"Linear",
         "number":1,
-        "src":"linear_1_source"
+        "src":"Videos/Linear/Linear_1.mp4"
     },
     {   
         "id":"Linear_2",
         "condition":"Linear",
         "number":2,
-        "src":"linear_2_source"
+        "src":"Videos/Linear/Linear_2.mp4"
     },
     {   
         "id":"Linear_3",
         "condition":"Linear",
         "number":3,
-        "src":"linear_3_source"
+        "src":"Videos/Linear/Linear_3.mp4"
     },
     {   
         "id":"Linear_4",
         "condition":"Linear",
         "number":4,
-        "src":"linear_4_source"
+        "src":"Videos/Linear/Linear_4.mp4"
     },    
     {   
         "id":"Linear_5",
         "condition":"Linear",
         "number":5,
-        "src":"linear_5_source"
-    },
-    {   
-        "id":"Linear_6",
-        "condition":"Linear",
-        "number":6,
-        "src":"linear_6_source"
-    },
-    {   
-        "id":"Linear_7",
-        "condition":"Linear",
-        "number":7,
-        "src":"linear_7_source"
-    },
-    {   
-        "id":"Linear_8",
-        "condition":"Linear",
-        "number":8,
-        "src":"linear_8_source"
-    },
-    {   
-        "id":"Linear_9",
-        "condition":"Linear",
-        "number":9,
-        "src":"linear_9_source"
-    },
-    {   
-        "id":"Linear_10",
-        "condition":"Linear",
-        "number":10,
-        "src":"linear_10_source"
+        "src":"Videos/Linear/Linear_5.mp4"
     }]
     var adaptive_videos=[   
     {   
         "id":"Adaptive_1",
         "condition":"Adaptive",
         "number":1,
-        "src":"adaptive_1_source"
+        "src":"Videos/Adaptive/Adapt_1.mp4"
     },
     {   
         "id":"Adaptive_2",
         "condition":"Adaptive",
         "number":2,
-        "src":"adaptive_2_source"
+        "src":"Videos/Adaptive/Adapt_2.mp4"
     },
     {   
         "id":"Adaptive_3",
         "condition":"Adaptive",
         "number":3,
-        "src":"adaptive_3_source"
+        "src":"Videos/Adaptive/Adapt_3.mp4"
     },
     {   
         "id":"Adaptive_4",
         "condition":"Adaptive",
         "number":4,
-        "src":"adaptive_4_source"
+        "src":"Videos/Adaptive/Adapt_4.mp4"
     },    
     {   
         "id":"Adaptive_5",
         "condition":"Adaptive",
         "number":5,
-        "src":"adaptive_5_source"
-    },
-    {   
-        "id":"Adaptive_6",
-        "condition":"Adaptive",
-        "number":6,
-        "src":"adaptive_6_source"
-    },
-    {   
-        "id":"Adaptive_7",
-        "condition":"Adaptive",
-        "number":7,
-        "src":"adaptive_7_source"
-    },
-    {   
-        "id":"Adaptive_8",
-        "condition":"Adaptive",
-        "number":8,
-        "src":"adaptive_8_source"
-    },
-    {   
-        "id":"Adaptive_9",
-        "condition":"Adaptive",
-        "number":9,
-        "src":"adaptive_9_source"
-    },
-    {   
-        "id":"Adaptive_10",
-        "condition":"Adaptive",
-        "number":10,
-        "src":"adaptive_10_source"
+        "src":"Videos/Adaptive/Adapt_5.mp4"
     }
 ]
 var generative_videos=[
@@ -126,61 +66,31 @@ var generative_videos=[
         "id":"Generative_1",
         "condition":"Generative",
         "number":1,
-        "src":"generative_1_source"
+        "src":"Videos/Generative/Gen_1.mp4"
     },
     {   
         "id":"Generative_2",
         "condition":"Generative",
         "number":2,
-        "src":"generative_2_source"
+        "src":"Videos/Generative/Gen_2.mp4"
     },
     {   
         "id":"Generative_3",
         "condition":"Generative",
         "number":3,
-        "src":"generative_3_source"
+        "src":"Videos/Generative/Gen_3.mp4"
     },
     {   
         "id":"Generative_4",
         "condition":"Generative",
         "number":4,
-        "src":"generative_4_source"
+        "src":"Videos/Generative/Gen_4.mp4"
     },    
     {   
         "id":"Generative_5",
         "condition":"Generative",
         "number":5,
-        "src":"generative_5_source"
-    },
-    {   
-        "id":"Generative_6",
-        "condition":"Generative",
-        "number":6,
-        "src":"generative_6_source"
-    },
-    {   
-        "id":"Generative_7",
-        "condition":"Generative",
-        "number":7,
-        "src":"generative_7_source"
-    },
-    {   
-        "id":"Generative_8",
-        "condition":"Generative",
-        "number":8,
-        "src":"generative_8_source"
-    },
-    {   
-        "id":"Generative_9",
-        "condition":"Generative",
-        "number":9,
-        "src":"generative_9_source"
-    },
-    {   
-        "id":"Generative_10",
-        "condition":"Generative",
-        "number":10,
-        "src":"generative_10_source"
+        "src":"Videos/Generative/Gen_5.mp4"
     }
 ]
 var none_videos=[
@@ -188,62 +98,33 @@ var none_videos=[
         "id":"None_1",
         "condition":"None",
         "number":1,
-        "src":"none_1_source"
+        "src":"Videos/None/None_1.mp4"
     },
     {   
         "id":"None_2",
         "condition":"None",
         "number":2,
-        "src":"none_2_source"
+        "src":"Videos/None/None_2.mp4"
     },
     {   
         "id":"None_3",
         "condition":"None",
         "number":3,
-        "src":"none_3_source"
+        "src":"Videos/None/None_3.mp4"
     },
     {   
         "id":"None_4",
         "condition":"None",
         "number":4,
-        "src":"none_4_source"
+        "src":"Videos/None/None_4.mp4"
     },    
     {   
         "id":"None_5",
         "condition":"None",
         "number":5,
-        "src":"none_5_source"
+        "src":"Videos/None/None_5.mp4"
     },
-    {   
-        "id":"None_6",
-        "condition":"None",
-        "number":6,
-        "src":"none_6_source"
-    },
-    {   
-        "id":"None_7",
-        "condition":"None",
-        "number":7,
-        "src":"none_7_source"
-    },
-    {   
-        "id":"None_8",
-        "condition":"None",
-        "number":8,
-        "src":"none_8_source"
-    },
-    {   
-        "id":"None_9",
-        "condition":"None",
-        "number":9,
-        "src":"none_9_source"
-    },
-    {   
-        "id":"None_10",
-        "condition":"None",
-        "number":10,
-        "src":"none_10_source"
-    }
+    
 ]
 
 

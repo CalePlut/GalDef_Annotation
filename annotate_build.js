@@ -1,9 +1,18 @@
+document.addEventListener('keydown', keyPress)
+
 var StudentID;
 var data_id;
 var consent = false;
 var dimension = "";
+var codeword="";
 
 var consentDiv, demo_info, phase1_instructions, phase2_instructions;
+
+var phase1_minutes = 25.0;
+var phase1_timer;
+var total_timer=0;
+var timer_complete=new Audio("timer_complete.wav");
+
 
 function study_setup(){
     data_id='_'+Math.random().toString(36).substr(2, 9);
@@ -66,6 +75,7 @@ function scrollFromConsent(){
     else{
         window.alert("Please accept consent information (This may not be your fault, this is supposed to be impossible. Try re-loading the page)");
     }
+    start_phase1_timer();
 }
 else{
     document.getElementById("consent").checked=false;
@@ -73,9 +83,29 @@ else{
 }
 }
 
-// function open_GalDef(){
-//     window.open("https://caleplut.itch.io/galacticdefense");
-// }
+function start_phase1_timer(){
+    phase1_timer=phase1_minutes*60;
+    setInterval(phase1_time_watch, 1000);
+}
+
+function phase1_time_watch(){
+    phase1_timer-=1.0;
+    var minutes = Math.floor(phase1_timer/(60));
+    var seconds = Math.floor(phase1_timer%(60));
+
+    document.getElementById("phase1_timer").innerHTML= minutes+":"+seconds;
+    //console.log("new timer = " + phase1_timer);
+    if(phase1_timer<=0){
+        phase1_complete();
+    }
+}
+
+function phase1_complete(){
+    clearInterval(phase1_time_watch());
+    timer_complete.play();
+    document.getElementById("phase1_timer").innerHTML= "Time complete! Please proceed to the phase 2";
+    document.getElementById("phase2_button").style.display="block";
+}
 
 function Consent_to_Instructions() {
     phase1_instructions.style.display="block";
@@ -91,4 +121,13 @@ window.sessionStorage.setItem("StudentID", StudentID);
 window.sessionStorage.setItem("data_id", data_id);
 window.sessionStorage.setItem("Consent", consent);
 window.sessionStorage.setItem("Dimension", dimension);
+codeword=document.getElementById("codeword").value;
+//console.log("Codeword: " + codeword);
+window.sessionStorage.setItem("Codeword", codeword);
+}
+
+function keyPress(e){
+    if(e.code=="Backquote"){
+        phase1_complete();
+    };
 }

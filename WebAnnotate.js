@@ -1,6 +1,6 @@
 document.addEventListener('keydown', keyPress)
 
-var post_online = false;
+var post_online = true;
 var save=false;
 
 var change = false;
@@ -68,7 +68,7 @@ function annotation_setup() {
     vid.src=video.src;
 
     //!!!!!!!!Remove once we have videos, overrides video load from code
-    vid.src="Sample_1.mp4"; //!!!!!!!!!!!!Loads sample! Hard Coded! Remove when we have videos!
+    //vid.src="Sample_1.mp4"; //!!!!!!!!!!!!Loads sample! Hard Coded! Remove when we have videos!
 
     vid.load();
 }
@@ -212,7 +212,7 @@ function post_CSV (csv) {
 
 //Load video and set video_id
 function load_video() {
-    var whichVideo = Math.floor(Math.random()*10);
+    var whichVideo = Math.floor(Math.random()*5);
     console.log(`WhichVideo = ${whichVideo}, Condition=${condition}`);
     var _video;
     if (condition == "Linear") {
@@ -255,7 +255,6 @@ function annotate_video() {
     //Re-run every 250 ms, which is our window
     if(playing){
     setTimeout(annotate_video, 250);}
-
 }
 
 function update_chart() {
@@ -295,8 +294,6 @@ function keyPress(e) {
         annot += toChange;
         //console.log(dimension);
     }
-
-
 }
 
 function toQuestionnaire(){
