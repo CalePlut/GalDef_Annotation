@@ -126,7 +126,3 @@ var none_videos=[
     },
     
 ]
-
-
-
-
