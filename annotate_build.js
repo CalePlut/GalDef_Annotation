@@ -134,4 +134,7 @@ function keyPress(e){
     if(e.code=="Backquote"){
         phase1_complete();
     };
+   // if(e.code=="Digit1"){
+     //   phase1_timer=10.0;
+    //}
 }
