@@ -67,9 +67,6 @@ function annotation_setup() {
     video = load_video();
     vid.src=video.src;
 
-    //!!!!!!!!Remove once we have videos, overrides video load from code
-    //vid.src="Sample_1.mp4"; //!!!!!!!!!!!!Loads sample! Hard Coded! Remove when we have videos!
-
     vid.load();
 }
 
@@ -77,8 +74,6 @@ function setup_overlays(){
     var clon = get_dimension_text();
 
     document.getElementById("annot_instructions").appendChild(clon);
-   // document.getElementById("between").appendChild(clon);
-    //document.getElementById("finished").appendChild(clon);
 }
 
 function get_dimension_text(){
@@ -141,11 +136,15 @@ function end_annotate(){
 }
 
 function raiseOverlay(remaining_conditions){
+    var conditions_so_far=4-remaining_conditions
+    var numberString = `${conditions_so_far}/4`;
     if(remaining_conditions==4){
         document.getElementById("begin").style ="display:block";
+        document.getElementById("begin").innerHTML = document.getElementById("begin").innerHTML.replace("_NUMBER", numberString);
     }
     else if (remaining_conditions>0){
         document.getElementById("between").style= "display:block";
+        document.getElementById("between").innerHTML = document.getElementById("between").innerHTML.replace("_NUMBER", numberString);
     }
     else{
         console.log("Annotations finished!");
