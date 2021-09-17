@@ -41,23 +41,23 @@ def analyze_data(paired_annotations):
     for set in paired_annotations:
         if(len(set.annotations)>1): #If there are at least two annotations in the set (e.g. we have annotations)
             id = "{}_{}_{}".format(set.condition, set.number, set.dimension)
-            template = set.annotations[0] #Set template to the first annotation (PreGLAM)
+            template = np.array(set.annotations[0], dtype=np.double) #Set template to the first annotation (PreGLAM)
             for idx, annot in enumerate(set.annotations): #Then, compare any other annotations to the base one
                 if(idx>0):
-                    query=annot
+                    query=np.array(annot, dtype=np.double)
                     path = dtw.warping_path(query, template)
                     dtwvis.plot_warping(query, template, path, filename="{}_DTW.png".format(id))
-                    distance = dtw.distance(query, template)
+                    distance = dtw.distance_fast(query, template)
                     #print("{} distance: {}".format(id,distance))
-                    results.append(analysis_result(id, distance))
+                    results.append(analysis_result(id, set.condition, set.dimension, set.number, distance))
     return results
 
 def output_data(results):
     with open("analysis_results.csv", "w", newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['id', 'distance'])
+        writer.writerow(['id', 'condition', 'number', 'dimension', 'distance'])
         for result in results:
-            writer.writerow([result.id, result.distance])
+            writer.writerow([result.id, result.condition, result.number, result.dimension, result.distance])
             
 
 
@@ -170,8 +170,11 @@ class annot_set:
         self.annotations.append(annot.annot)
 
 class analysis_result:
-    def __init__(self, id, distance):
+    def __init__(self, id, condition, dimension, number, distance):
         self.id=id
+        self.condition=condition
+        self.dimension=dimension
+        self.number=number
         self.distance=distance
 
 def create_chart(file): #Creates chart. Not important to functioning, but we'll leave it in for now
