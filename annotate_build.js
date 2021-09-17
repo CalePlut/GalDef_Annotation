@@ -16,6 +16,7 @@ var timer_complete=new Audio("timer_complete.wav");
 
 
 function study_setup(){
+    console.log("running setup");
     data_id='_'+Math.random().toString(36).substr(2, 9);
     consentDiv =document.getElementById("consentDiv");
     demo_info = document.getElementById("Demographic_information");
@@ -51,6 +52,8 @@ function study_setup(){
     str = clon.getElementById("annot_instr").innerHTML;
     clon.getElementById("annot_instr").innerHTML=str.replaceAll("_dimension", dimension);
     phase2_instructions.appendChild(clon);
+
+
 }
 
 function phase2(){
@@ -128,6 +131,13 @@ window.sessionStorage.setItem("Dimension", dimension);
 codeword=document.getElementById("codeword").value;
 //console.log("Codeword: " + codeword);
 window.sessionStorage.setItem("Codeword", codeword);
+
+    //Setup for annotation reloads
+    window.sessionStorage.setItem("Generative", "false");
+    window.sessionStorage.setItem("Adaptive", "false");
+    window.sessionStorage.setItem("Linear", "false");
+    window.sessionStorage.setItem("None", "false");
+    console.log("Session storage conditions set");
 }
 
 function keyPress(e){

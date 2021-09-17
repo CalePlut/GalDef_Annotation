@@ -2,7 +2,7 @@
 
 <html scroll="no">
     <head>
-        <meta http-equiv="Cache-control" content="No-Cache">
+<meta http-equiv="Cache-Control" content="no-cache">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@3.4.3/dist/excellentexport.min.js"></script>
       
@@ -10,10 +10,10 @@
         <link rel="stylesheet" href="annotate_style.css">
         <script src="videoClips.js"></script>
         <script src="WebAnnotate.js"></script>
-        <script src="uploadCSV.php"></script>
+        <script type = "text/php" src="upload_annot.php"></script>
 
     </head>
-    <body  onLoad="load_page()">
+    <body  onLoad="load_page()" style="overflow:hidden">
         <div>
         <video id="annot_target" class="videoInsert" onplay="begin_annotate()" onpause="pause_annotate()" onended="end_annotate()">
             <source id = "annot_vid" src="" type="video/mp4">
@@ -46,6 +46,14 @@
             <button type = "button" class="button" onclick="toQuestionnaire()">Questionnaire</button>
             </div>
         </div>
+        <div class = "overlay" id = "endAnnot">
+           <div id="text"> Annotation uploaded. When ready, please press the button to load the next annotation
+        <br><button type="button" class="button" onclick="annotate_finish()">Next annotation</button>
+        </div></div>
+        <div class = "overlay" id = "videoLoad">
+        <div id="text">Loading video. Please wait...</div>    
+        </div>
+
     </body>
     </html>
 

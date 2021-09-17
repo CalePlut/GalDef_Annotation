@@ -13,12 +13,12 @@ var vid = document.getElementById("annot_target");
 var video;
 var dimension = window.sessionStorage.getItem("Dimension");
 var data_ID=window.sessionStorage.getItem("data_id");
-var conditions=["Linear", "Adaptive", "Generative", "None"];
+var conditions;
 var condition;
 var overlay = false;
 var video_id;
 
-var video_history = [];
+var video_history;
 
 const labels=[0.25]
 const data = {
@@ -53,21 +53,48 @@ function annotation_setup() {
 
     setup_chart();
 
-    raiseOverlay(conditions.length);
+    handle_conditions();
+
+    document.getElementById("videoLoad").style="display:block";
     condition = select_condition();
     console.log("Condition =" + condition);
     console.log("Dimension = " + dimension);
 
-    let str = document.getElementById("annot_instructions").innerHTML;
-    document.getElementById("annot_instructions").innerHTML=str.replaceAll("_dimension", dimension);
-
-    console.log("Starting annotation");
     vid = document.getElementById("annot_target");
     
     video = load_video();
     vid.src=video.src;
 
     vid.load();
+    vid.addEventListener("canplaythrough", video_loaded);
+
+    let str = document.getElementById("annot_instructions").innerHTML;
+    document.getElementById("annot_instructions").innerHTML=str.replaceAll("_dimension", dimension);
+
+    console.log("Starting annotation");
+}
+
+function video_loaded(){ //Hides loading overlay and loads playing overlay
+    document.getElementById("videoLoad").style="display:none";
+    raiseOverlay(conditions.length+1);
+}
+
+function handle_conditions(){
+    conditions=[];
+    if(window.sessionStorage.getItem("None")=="false"){
+        conditions.push("None");
+    }
+    if(window.sessionStorage.getItem("Linear")=="false"){
+        conditions.push("Linear");
+    }
+    if(window.sessionStorage.getItem("Adaptive")=="false"){
+        conditions.push("Adaptive");
+    }
+    if(window.sessionStorage.getItem("Generative")=="false")
+    {
+        conditions.push("Generative");
+    }
+   // console.log("Remaining conditions " + conditions);
 }
 
 function setup_overlays(){
@@ -106,7 +133,24 @@ function select_condition(){
     var which_condition = Math.floor(Math.random()*conditions.length);
     var condition = conditions[which_condition];
     conditions.splice(which_condition, 1);
+
+
     return condition;
+}
+
+function record_condition_data(){
+    if(condition=="None"){
+        window.sessionStorage.setItem("None", "true");
+    }
+    else if(condition=="Linear"){
+        window.sessionStorage.setItem("Linear", "true");
+    }
+    else if(condition=="Adaptive"){
+        window.sessionStorage.setItem("Adaptive", "true");
+    }
+    else if (condition=="Generative"){
+        window.sessionStorage.setItem("Generative", "true");
+    }
 }
 
 function begin_annotate(){
@@ -122,13 +166,19 @@ function pause_annotate(){
 
 
 function end_annotate(){
+    record_condition_data();
     playing=false;
     //First, export the annotation to the php file
     var name = `GalDef_Annot_${data_ID}`;
     export_csv(name);
+    
+    //setTimeout(annotate_finish(), 2500);
+}
 
+function annotate_finish(){
+    document.getElementById("endAnnot").style="display:none"
     if(conditions.length>0){
-        annotation_setup();
+        location.reload();
     }
     else{
         raiseOverlay(0);
@@ -156,6 +206,7 @@ function lower_overlay(){
     document.getElementById("begin").style ="display:none";
     document.getElementById("between").style= "display:none";
     document.getElementById("finished").style="display:none";
+    document.getElementById("endAnnot").style="display:none";
 }
 
 function build_csv(){
@@ -202,12 +253,25 @@ function post_CSV (csv) {
     // (C) AJAX UPLOAD TO SERVER
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "upload_annot.php");
+    xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
     xhr.onload = function () {
       console.log(this.status);
       console.log(this.response);
     };
     xhr.send(data);
+
+    xhr.onreadystatechange = upload_state;
+
+    function upload_state(){
+        //console.log(xhr.readyState)
+        if(xhr.readyState===XMLHttpRequest.DONE){
+            document.getElementById("endAnnot").style="display:block";
+            //annotate_finish();
+        }
+      }
   }
+
+
 
 //Load video and set video_id
 function load_video() {
@@ -228,7 +292,18 @@ function load_video() {
     }
     console.log(_video);
     video_id=_video.id;
-    video_history.push(video_id);
+
+    video_history=JSON.parse(window.sessionStorage.getItem("Video_history"));
+    //If we have some video history, add it
+    if(video_history!=null){
+        video_history.push(video_id);
+    }
+    else{
+        video_history = [video_id];
+    }
+
+    window.sessionStorage.setItem("Video_history", JSON.stringify(video_history));
+    
     console.log("Added " + video_id +" to history");
     return _video;
 }
@@ -296,7 +371,7 @@ function keyPress(e) {
 }
 
 function toQuestionnaire(){
-window.sessionStorage.setItem("Video_history", JSON.stringify(video_history));
+//window.sessionStorage.setItem("Video_history", JSON.stringify(video_history));
 //console.log("Video history set :" + video_history);
 window.location.href ="questionnaire.html";
 }

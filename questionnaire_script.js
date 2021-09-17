@@ -1,7 +1,7 @@
 var save = false;
-var post_online = false;
+var post_online = true;
 var video_history = JSON.parse(window.sessionStorage.getItem("Video_history"));
-var videos_exist = false;
+var videos_exist = true;
 var data_ID
 
 const load_questionnaire = () => {
@@ -34,7 +34,7 @@ function build_q_csv() {
     var immersion = document.getElementById("immersion").value;
     var preference = document.getElementById("preference").value;
     var comments = document.getElementById("comments").value;
-    row = `${music_match}, ${immersion}, ${preference}`;
+    row = `${music_match}, ${immersion}, ${preference}. ${comments}`;
     csv += row;
 
     return csv;
@@ -55,12 +55,12 @@ const export_q_csv = (fileName) => {
     }
 }
 
-function post_CSV(csv) {
+function post_CSV (csv) {
     console.log("Posting CSV");
 
     // (A) CREATE BLOB OBJECT
-    var myBlob = new Blob([csv], { type: "text/csv" });
-
+    var myBlob = new Blob([csv], {type: "text/csv"});
+  
     // (B) FORM DATA
     var data = new FormData();
     data.append("upfile", myBlob);
@@ -68,12 +68,23 @@ function post_CSV(csv) {
     // (C) AJAX UPLOAD TO SERVER
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "upload_quest.php");
+    xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
     xhr.onload = function () {
-        console.log(this.status);
-        console.log(this.response);
+      console.log(this.status);
+      console.log(this.response);
     };
     xhr.send(data);
-}
+
+    xhr.onreadystatechange = upload_state;
+
+    function upload_state(){
+        //console.log(xhr.readyState)
+        if(xhr.readyState===XMLHttpRequest.DONE){
+            document.getElementById("endQuest").style="display:block";
+            //annotate_finish();
+        }
+      }
+  }
 
 const populate_videos = () => {
 
