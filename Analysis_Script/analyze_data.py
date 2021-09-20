@@ -5,6 +5,8 @@ import os
 from dtaidistance import dtw
 from dtaidistance import dtw_visualisation as dtwvis
 import csv
+import sklearn
+from sklearn.metrics import mean_squared_error
 
 PreGLAM_annotations=[]
 Participant_annotations=[]
@@ -17,8 +19,10 @@ def import_and_analyze(PreGLAM, Data): #Imports both preGLAM and data folders
     Participant_import(Data) #Import all downloaded participant responses
     
     paired_annotations = collate_annotations() #Collate participant data and PreGLAM data to create sets
-    results = analyze_data(paired_annotations) #Runs DTW and plots results
-    output_data(results)
+    dtw_results = dtw_analysis(paired_annotations) #Runs DTW and plots results
+    rmse_results=rmse_results(paired_annotations) 
+    output_data(results, "dtw")
+    output_data(results, "rmse")
 
 def collate_annotations():
     paired_annotations = list()
@@ -36,7 +40,7 @@ def collate_annotations():
     
     return paired_annotations
 
-def analyze_data(paired_annotations):
+def dtw_analysis(paired_annotations):
     results = []
     for set in paired_annotations:
         if(len(set.annotations)>1): #If there are at least two annotations in the set (e.g. we have annotations)
@@ -49,16 +53,30 @@ def analyze_data(paired_annotations):
                     dtwvis.plot_warping(query, template, path, filename="{}_DTW.png".format(id))
                     distance = dtw.distance_fast(query, template)
                     #print("{} distance: {}".format(id,distance))
-                    results.append(analysis_result(id, set.condition, set.dimension, set.number, distance))
+                    results.append(analysis_result(id, set.condition, set.dimension, set.number, distance, "DTW"))
     return results
 
-def output_data(results):
-    with open("analysis_results.csv", "w", newline='') as csvfile:
+def output_data(results, model):
+    filename = model+"_result.csv"
+    with open(filename, "w", newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['id', 'condition', 'number', 'dimension', 'distance'])
+        writer.writerow(['id', 'condition', 'number', 'dimension', 'distance', 'test'])
         for result in results:
-            writer.writerow([result.id, result.condition, result.number, result.dimension, result.distance])
+            writer.writerow([result.id, result.condition, result.number, result.dimension, result.distance, result.model])
             
+def rsme_analysis(paired_annotations):
+    results = []
+    for set in paired_annotations:
+        if(len(set.annotations)>1): #If there are at least two annotations in the set (e.g. we have annotations)
+            id = "{}_{}_{}".format(set.condition, set.number, set.dimension)
+            template = np.array(set.annotations[0], dtype=np.double) #Set template to the first annotation (PreGLAM)
+            for idx, annot in enumerate(set.annotations): #Then, compare any other annotations to the base one
+                if(idx>0):
+                    query=np.array(annot, dtype=np.double)
+                    rms = mean_squared_error(template, prediction, squared=FALSE)
+                    #print("{} distance: {}".format(id,distance))
+                    results.append(analysis_result(id, set.condition, set.dimension, set.number, rms, "RMSE"))
+    return results
 
 
 
@@ -170,12 +188,12 @@ class annot_set:
         self.annotations.append(annot.annot)
 
 class analysis_result:
-    def __init__(self, id, condition, dimension, number, distance):
+    def __init__(self, id, condition, dimension, number, result, model):
         self.id=id
         self.condition=condition
         self.dimension=dimension
         self.number=number
-        self.distance=distance
+        self.result=result
 
 def create_chart(file): #Creates chart. Not important to functioning, but we'll leave it in for now
     vat = pd.read_csv(file)
