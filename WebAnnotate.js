@@ -3,6 +3,8 @@ document.addEventListener('keydown', keyPress)
 var post_online = true;
 var save=false;
 
+var annot_interval;
+
 var change = false;
 var time = 0.0;
 var annot = 0.0;
@@ -36,8 +38,9 @@ const data = {
 
 const config = {
     type: 'line', data,
-    options: { responsive: true,
-        padding:20       
+    options: { 
+        responsive: true,
+        padding:20
     }
 };
 
@@ -81,6 +84,10 @@ function video_loaded(){ //Hides loading overlay and loads playing overlay
 
 function handle_conditions(){
     conditions=[];
+    if(window.sessionStorage.getItem("Sample")=="false"){
+        conditions.push("Sample");
+    }
+    else{
     if(window.sessionStorage.getItem("None")=="false"){
         conditions.push("None");
     }
@@ -94,6 +101,7 @@ function handle_conditions(){
     {
         conditions.push("Generative");
     }
+}
    // console.log("Remaining conditions " + conditions);
 }
 
@@ -134,11 +142,13 @@ function select_condition(){
     var condition = conditions[which_condition];
     conditions.splice(which_condition, 1);
 
-
     return condition;
 }
 
 function record_condition_data(){
+    if(condition=="Sample"){
+        window.sessionStorage.setItem("Sample", "true");
+    }
     if(condition=="None"){
         window.sessionStorage.setItem("None", "true");
     }
@@ -154,13 +164,17 @@ function record_condition_data(){
 }
 
 function begin_annotate(){
+    if(!playing){
     lower_overlay();
     playing=true;
     vid.play();
-    annotate_video();
+    annot_interval=setInterval(annotate_video, 250);
+    }
+    //annotate_video();
 }
 function pause_annotate(){
-    playing=false;
+    //playing=false;
+    clearInterval(annot_interval);
     vid.pause();
 }
 
@@ -168,6 +182,7 @@ function pause_annotate(){
 function end_annotate(){
     record_condition_data();
     playing=false;
+    clearInterval(annot_interval);
     //First, export the annotation to the php file
     var name = `GalDef_Annot_${data_ID}`;
     export_csv(name);
@@ -186,6 +201,8 @@ function annotate_finish(){
 }
 
 function raiseOverlay(remaining_conditions){
+    if(condition=="Sample"){document.getElementById("sample").style="display:block";}
+    else{
     var conditions_so_far=4-remaining_conditions
     var numberString = `${conditions_so_far}/4`;
     if(remaining_conditions==4){
@@ -201,8 +218,10 @@ function raiseOverlay(remaining_conditions){
         document.getElementById("finished").style="display:block";
     }
 }
+}
 
 function lower_overlay(){
+    document.getElementById("sample").style="display:none";
     document.getElementById("begin").style ="display:none";
     document.getElementById("between").style= "display:none";
     document.getElementById("finished").style="display:none";
@@ -278,6 +297,9 @@ function load_video() {
     var whichVideo = Math.floor(Math.random()*5);
     console.log(`WhichVideo = ${whichVideo}, Condition=${condition}`);
     var _video;
+    if(condition=="Sample"){
+        _video=sample_video[0];
+    }
     if (condition == "Linear") {
         _video = linear_videos[whichVideo];
     }
@@ -327,8 +349,8 @@ function annotate_video() {
     //Updates chart
     update_chart();
     //Re-run every 250 ms, which is our window
-    if(playing){
-    setTimeout(annotate_video, 250);}
+  //  if(playing){
+    ///setTimeout(annotate_video, 250);}
 }
 
 function update_chart() {
@@ -341,12 +363,11 @@ function update_chart() {
     chart.update();
 }
 
+var toChange = 0;
 
 function keyPress(e) {
     //console.log("Key press detected");
-    if (change == false) {
-        toChange = 0;
-
+  //  if (change == false) {
         if (e.code == "ArrowUp") {
             toChange = 1;
             change = true;
@@ -366,8 +387,9 @@ function keyPress(e) {
         }
 
         annot += toChange;
+        toChange=0;
         //console.log(dimension);
-    }
+    //}
 }
 
 function toQuestionnaire(){

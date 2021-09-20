@@ -133,6 +133,7 @@ codeword=document.getElementById("codeword").value;
 window.sessionStorage.setItem("Codeword", codeword);
 
     //Setup for annotation reloads
+    window.sessionStorage.setItem("Sample", "false");
     window.sessionStorage.setItem("Generative", "false");
     window.sessionStorage.setItem("Adaptive", "false");
     window.sessionStorage.setItem("Linear", "false");
