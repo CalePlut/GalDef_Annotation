@@ -7,6 +7,8 @@ from dtaidistance import dtw_visualisation as dtwvis
 import csv
 import sklearn
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_percentage_error
+from sklearn.metrics import r2_score
 
 PreGLAM_annotations=[]
 Participant_annotations=[]
@@ -20,9 +22,9 @@ def import_and_analyze(PreGLAM, Data): #Imports both preGLAM and data folders
     
     paired_annotations = collate_annotations() #Collate participant data and PreGLAM data to create sets
     dtw_results = dtw_analysis(paired_annotations) #Runs DTW and plots results
-    rmse_results=rmse_results(paired_annotations) 
-    output_data(results, "dtw")
-    output_data(results, "rmse")
+    output_dtw(dtw_results, "DTW")
+    rsme_results=rsme_analysis(paired_annotations)
+    output_data(rsme_results, "RSME")
 
 def collate_annotations():
     paired_annotations = list()
@@ -30,14 +32,15 @@ def collate_annotations():
         paired_annotations.append(annot_set(annot)) #This creates paired_annotations that should have a single annotation set
         #print("Adding a paired annotation. Total length {}".format(len(paired_annotations)))
     
-    #for idx, annot in enumerate(paired_annotations):
-      #  print("Annotation set {} has {} annotations".format(idx, len(annot.annotations)))
 
     for annot in paired_annotations: #Now, iterate through the list of paired annotations with 
         for data in Participant_annotations: #For each participant annotation
             if(annot.condition==data.condition and annot.dimension==data.dimension and annot.number==data.number): #If this is the same condition, dimension, and number...
                 annot.addAnnot(data) #Add it to the annotation set
     
+    #for idx, annot in enumerate(paired_annotations):
+       # print("Annotation set {} has {} annotations".format(idx, len(annot.annotations)))
+
     return paired_annotations
 
 def dtw_analysis(paired_annotations):
@@ -53,17 +56,9 @@ def dtw_analysis(paired_annotations):
                     dtwvis.plot_warping(query, template, path, filename="{}_DTW.png".format(id))
                     distance = dtw.distance_fast(query, template)
                     #print("{} distance: {}".format(id,distance))
-                    results.append(analysis_result(id, set.condition, set.dimension, set.number, distance, "DTW"))
+                    results.append(dtw_result(id, set.condition, set.dimension, set.number, distance))
     return results
 
-def output_data(results, model):
-    filename = model+"_result.csv"
-    with open(filename, "w", newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['id', 'condition', 'number', 'dimension', 'distance', 'test'])
-        for result in results:
-            writer.writerow([result.id, result.condition, result.number, result.dimension, result.distance, result.model])
-            
 def rsme_analysis(paired_annotations):
     results = []
     for set in paired_annotations:
@@ -72,12 +67,42 @@ def rsme_analysis(paired_annotations):
             template = np.array(set.annotations[0], dtype=np.double) #Set template to the first annotation (PreGLAM)
             for idx, annot in enumerate(set.annotations): #Then, compare any other annotations to the base one
                 if(idx>0):
-                    query=np.array(annot, dtype=np.double)
-                    rms = mean_squared_error(template, prediction, squared=FALSE)
+                    if(len(template)>len(annot)):
+                        temp_size=len(annot)
+                        temp_truncate=template[:temp_size]
+                        query=np.array(annot, dtype=np.double)
+                        rms = mean_squared_error(temp_truncate, query, squared=False)
+                        r_square=r2_score(temp_truncate, query)
+                        mape=mean_absolute_percentage_error(temp_truncate, query)
+                    else:
+                        temp_size=len(template)
+                        annot_truncate=annot[:temp_size]
+                        query=np.array(annot_truncate, dtype=np.double)
+                        rms = mean_squared_error(template, query, squared=False)
+                        r_square=r2_score(template, query)
+                        mape=mean_absolute_percentage_error(template, query)
+                        
+                    print("RMSE: {}".format(rms))
                     #print("{} distance: {}".format(id,distance))
-                    results.append(analysis_result(id, set.condition, set.dimension, set.number, rms, "RMSE"))
+                    results.append(analysis_result(id, set.condition, set.dimension, set.number, rms, mape, r_square))
+
     return results
 
+def output_data(results, test):
+    filename=test+"_results.csv"
+    with open(filename, "w", newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['id', 'condition', 'number', 'dimension', 'rmse', 'mape', 'r2'])
+        for result in results:
+            writer.writerow([result.id, result.condition, result.number, result.dimension, result.rmse, result.mape, result.r2])
+            
+def output_dtw(results, test):
+    filename=test+"_results.csv"
+    with open(filename, "w", newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['id', 'condition', 'number', 'dimension', 'distance'])
+        for result in results:
+            writer.writerow([result.id, result.condition, result.number, result.dimension, result.distance])
 
 
 def PreGLAM_import(folder):
@@ -92,8 +117,6 @@ def PreGLAM_import(folder):
 
         PreGLAM_annotations.append(annotation(cond, dim, num, annot))
     
- #   for obj in PreGLAM_annotations:
-    #    print("PreGLAM annotation object: Condition={}, Dimension={}, Number={}, Annotation Length={}".format(obj.condition, obj.dimension, obj.number, len(obj.annot)))
 
         
 def Participant_import(folder):
@@ -109,7 +132,8 @@ def Participant_import(folder):
                     dim=row[2].strip().title()
                     num = get_participant_number(row[3])
                 if(idx>2):
-                    annot.append(int(row[1]))
+                    if(row[1].isnumeric()):
+                        annot.append(int(row[1]))
 
         Participant_annotations.append(annotation(cond, dim, num, annot))
     
@@ -161,7 +185,15 @@ def parse_file_data(file):
         reader=csv.reader(csvfile)
         for idx, row in enumerate(reader):
             if(idx>0):
-                annot.append(float(row[1]))
+                input = row[1].strip()
+                try:
+                    input_float= float(input)
+                    if(np.isinf(input_float)):
+                        input_float=0
+                        print("input float is infinite")
+                    annot.append(input_float)
+                except ValueError:
+                    print("non-numeric: {}".format(input))
     return annot
 
 
@@ -188,12 +220,23 @@ class annot_set:
         self.annotations.append(annot.annot)
 
 class analysis_result:
-    def __init__(self, id, condition, dimension, number, result, model):
+    def __init__(self, id, condition, dimension, number, rmse, mape, r2):
         self.id=id
         self.condition=condition
         self.dimension=dimension
         self.number=number
-        self.result=result
+        self.rmse=rmse
+        self.mape=mape
+        self.r2=r2
+
+class dtw_result:
+    def __init__(self, id, condition, dimension, number, distance):
+        self.id=id
+        self.condition=condition
+        self.dimension=dimension
+        self.number=number
+        self.distance=distance
+
 
 def create_chart(file): #Creates chart. Not important to functioning, but we'll leave it in for now
     vat = pd.read_csv(file)
