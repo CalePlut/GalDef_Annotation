@@ -29,12 +29,14 @@ function build_q_csv() {
     var row = `${data_ID}, ${codeword}, ${studentID}, ${consent}, ${age}, ${pronouns}, ${weekly_hours}, ${dimension} \r\n`;
     csv += row;
 
-    csv += "Music_match, Immersion, Preference, Comments\r\n";
+    csv += "Music_match, Music_emotion,Immersion, Preference, Comments, Email, \r\n";
     var music_match = document.getElementById("music_match").value;
+    var music_emotion=document.getElementById("music_emotion").value;
     var immersion = document.getElementById("immersion").value;
     var preference = document.getElementById("preference").value;
     var comments = document.getElementById("comments").value;
-    row = `${music_match}, ${immersion}, ${preference}. ${comments}`;
+    var email = document.getElementById("email").value;
+    row = `${music_match}, ${music_emotion}, ${immersion}, ${preference}, ${comments}, ${email}`;
     csv += row;
 
     return csv;

@@ -25,26 +25,28 @@
             <!--<button id = "upload_file" type = "button" class = "button" onclick="post_CSV()">Upload</button>-->
         </div>
         <div class = "overlay" id = "sample">
-            <div id="text"><p id = "annot_instructions">Please turn on speakers or headphones<br>
+            <div id="text"><p id = "sample_annot">Please turn on speakers or headphones<br><br>
 
-            <b>Annotation Sample</b><br><br>
+            <b><u>Annotation Sample</b></u><br><br>
 
             This short video will introduce you to the annotation software<br>
-            This video is approximately 1 minute long<br>
+            This video is approximately 30 seconds long<br>
             Please use this video to practice using the annotation software. When you have completed the sample annotation, you may begin the full annotation 
 <br>
-            When you are ready, press the space bar <img src="Space_Key_Light.png"> to begin annotation<br>
-        
-            To annotate, use the up <img src="Arrow_Up_Key_Light.png"> and down <img src="Arrow_Down_Key_Light.png"> arrow keys to indicate the level of _dimension</p>
-        </div>
+To annotate, use the up <img src="Arrow_Up_Key_Light.png" width="auto" height="45"> and down <img src="Arrow_Down_Key_Light.png" width="auto" height="45"> arrow keys to indicate the level of _dimension</br>
+            When you are ready, press the space bar <img src="Space_Key_Light.png" width="auto" height="45"> to begin annotation</p>
+        </div></div>
         <div class = "overlay" id = "begin">
             <div id="text"><p id = "annot_instructions">Please turn on speakers or headphones<br>
 
-            Annotation _NUMBER
+            Annotation _NUMBER<br><br>
 
-            When you are ready, press the space bar <img src="Space_Key_Light.png"> to begin annotation<br>
-        
-            To annotate, use the up <img src="Arrow_Up_Key_Light.png"> and down <img src="Arrow_Down_Key_Light.png"> arrow keys to indicate the level of _dimension</p>
+            You are asked to provide a real-time annotation of the _dimension that you perceive, while watching a video of gameplay from Galactic Defense<br>
+   Please watch each video with the perspective that you want the player to win the game. As you watch the video, please indicate the level of _dimension that you perceive from the gameplay<br>
+
+   To annotate, use the up <img src="Arrow_Up_Key_Light.png" width="auto" height="45"> and down <img src="Arrow_Down_Key_Light.png" width="auto" height="45"> arrow keys to indicate the level of _dimension<br>
+            When you are ready, press the space bar <img src="Space_Key_Light.png" width="auto" height="45"> to begin annotation</p>
+    
         </div>
         
         </div>
@@ -56,6 +58,8 @@
     </div>
         <div class = "overlay" id = "finished">
             <div id="text">All annotations complete! Press the "Questionnaire" button to continue to the final questionnaire<hr>
+                For the final questionnaire, you will be shown the four videos that you annotated as a reference<br>
+                You will be asked a series of questions about your preferences regarding these four videos and the use of music<br>
                 (Note, if you don't see the questions, scroll down)<br>
             <button type = "button" class="button" onclick="toQuestionnaire()">Questionnaire</button>
             </div>
@@ -71,18 +75,20 @@
     </body>
     </html>
 
-    
-<template id="valence_instructions">
-    <h2>Valence</h2>
-    <p>Valence is sometimes called "pleasantness", and is associated with pleasure or attractiveness<br>
-        Events that are desirable, or that we want, are positively valenced, and events that are undesirable, that we don't want, are negatively valenced</p>
-    <p>Valence is independent of the activity level<br>
-        Excitement is an active positively valenced emotion, while satisfaction is an inactive positively valenced emotion<br>
-        Nervousness is an active negatively valenced emotion, while boredom is an inactive negatively valenced emotion</p>
-    <p>Examples of high-valence emotions include joy, excitement, satisfaction, or triumph<br>Examples of low-valence emotions include sadness, fear, anger, or disgust</p>
-    <p>Examples of high-valence activities in games may be passing an opponent in a driving game, finishing a quest in an RPG, and landing a combo in a fighting game<br>
-        Examples of low-valence activities in games may be being passed in a driving game, losing a unit in a tactics game, and winning an objective in a MOBA </p>
-</template>
+    <template id="valence_instructions">
+        <h2>Valence</h2>
+        <p>Valence is sometimes called "pleasantness", and is associated with pleasure or attractiveness<br>
+            Events that are desirable, or that we want, are positively valenced, and events that are undesirable, that we don't want, are negatively valenced</p>
+        <p>Valence is independent of the activity level<br>
+            Excitement is an active positively valenced emotion, while satisfaction is an inactive positively valenced emotion<br>
+            Nervousness is an active negatively valenced emotion, while boredom is an inactive negatively valenced emotion</p>
+        <p>Examples of high-valence emotions include joy, excitement, satisfaction, or triumph<br>
+            Examples of low-valence emotions include sadness, fear, anger, or disgust</p>
+        <p>Examples of high-valence activities in games may be passing an opponent in a driving game, finishing a quest in a role-playing game (RPG), and landing a combo in a fighting game<br>
+            Examples of low-valence activities in games may be being passed in a driving game, losing a unit in a tactics game, and losing an objective in a multiplayer online battle arena (MOBA)</p>
+            <p>In Galactic Defense, high-valence activities include, but are not limited to, defeating an opponent, dealing a large amount of damage, or absorbing a heavy laser<br>
+                Low-valence activities in Galactic Defense include being defeated, receiving a heavy laser attack, or receiving large amounts of damage</p>
+    </template>
 
 <template id="arousal_instructions">
     <h2>Arousal</h2>
@@ -92,7 +98,11 @@
     <p>Contentment is a pleasant low-arousal emotion, while guilt is an unpleasant low-arousal emotion - both are low-energy</p>
     <p>Examples of high-arousal emotions include excitement, anger, or triumph<br>
         Examples of low-arousal emotions include satisfaction, depression, exhaustion, or relaxation</p>
-    <p>In games, arousal is directly linked to the activity levle of the game, or the amount of things going on</p>    
+    <p>In games, arousal is linked to the activity level of the game, or the amount of things going on</p>    
+    <p>Examples of high-arousal activities in games may include executing a combo in a fighting game, or completing a series of jumps in a platforming game  <br>
+    Examples of low-arousal activities in games may include waiting for a cooldown to finish, blocking a series of attacks, or watching for opponent actions</p>
+    <p>In Galactic Defense, some high-arousal activities include firing a combo or laser, firing to interrupt an opponent's heal, or absorbing a heavy laser and returning fire</p>
+    <p>Examples of low-arousal activities in Galactic Defense include watching the opponent to parry a heavy laser or stopping fire to raise shields</p>
 </template>
 
 <template id="tension_instructions">
@@ -105,7 +115,9 @@
     <p>Examples of high-tension emotions include fear, excitement, or unease<br>
         Examples of low-tension emotions include satisfaction, sadness, and joy</p>
     <p>
-        Examples of high-tension situations in games may be playing X-Com, when a shell is coming in Mario Kart, or when you thing your opponent is about to use their full meter in a fighting game<br>
-        Examples of low-tension situations in games may be being comfortably in the lead in a driving game, resting at a bonfire in Dark Souls, or predicting a checkmate in chess.
+        Examples of high-tension situations in games may be playing X-Com, when a shell is coming in Mario Kart, or when you think your opponent is about to use their full meter in a fighting game<br>
+        Examples of low-tension situations in games may be being comfortably in the lead in a driving game, resting at a bonfire in Dark Souls, or predicting an inescapable checkmate in chess
     </p>
+    <p>Examples of high-tension situations in Galactic Defense include, but are not limited to, attempting to parry an incoming heavy laser, or having low shields when an attack is expected</p>
+    <p>Examples of low-tension situations in Galactic Defense include having successfully parried a heavy laser, having recently defeated an opponent, or having recently fired a full combo</p>
 </template>

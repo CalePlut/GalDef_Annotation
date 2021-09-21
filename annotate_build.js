@@ -115,6 +115,7 @@ function phase1_complete(){
 }
 
 function Consent_to_Instructions() {
+    phase1_instructions=document.getElementById("Phase1_Instructions");
     phase1_instructions.style.display="block";
 }
 

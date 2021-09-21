@@ -2,7 +2,7 @@ body{
   background-color: black;
 }
 div {
-    width: 1200px;
+    width: 1000px;
     border: 1px solid white;
     padding: 5px;
     margin: 2px;
@@ -58,7 +58,7 @@ h2{
   color: white;
   transform: translate(-45%,-45%);
   -ms-transform: translate(-45%,-45%);
-  text-align: center;
+  text-align: left;
 }
 img{
   vertical-align:middle;
@@ -91,5 +91,11 @@ img{
 .bottom_right{
   bottom:0;
   right:0;
+}
+a:link{
+  color:yellow;
+}
+a:visited{
+  color:orange;
 }
 

@@ -73,6 +73,8 @@ function annotation_setup() {
 
     let str = document.getElementById("annot_instructions").innerHTML;
     document.getElementById("annot_instructions").innerHTML=str.replaceAll("_dimension", dimension);
+    let samp = document.getElementById("sample_annot").innerHTML;
+    document.getElementById("sample_annot").innerHTML=samp.replaceAll("_dimension", dimension);
 
     console.log("Starting annotation");
 }
@@ -87,7 +89,6 @@ function handle_conditions(){
     if(window.sessionStorage.getItem("Sample")=="false"){
         conditions.push("Sample");
     }
-    else{
     if(window.sessionStorage.getItem("None")=="false"){
         conditions.push("None");
     }
@@ -103,7 +104,7 @@ function handle_conditions(){
     }
 }
    // console.log("Remaining conditions " + conditions);
-}
+
 
 function setup_overlays(){
     var clon = get_dimension_text();
@@ -138,11 +139,17 @@ function setup_chart() {
 
 //Returns the selected condition and prunes list
 function select_condition(){
+    if(conditions[0]=="Sample"){
+        conditions.splice(0, 1);
+        return "Sample";
+        }
+    else{
     var which_condition = Math.floor(Math.random()*conditions.length);
     var condition = conditions[which_condition];
     conditions.splice(which_condition, 1);
 
     return condition;
+    }
 }
 
 function record_condition_data(){
@@ -186,7 +193,6 @@ function end_annotate(){
     //First, export the annotation to the php file
     var name = `GalDef_Annot_${data_ID}`;
     export_csv(name);
-    
     //setTimeout(annotate_finish(), 2500);
 }
 
@@ -300,6 +306,7 @@ function load_video() {
     if(condition=="Sample"){
         _video=sample_video[0];
     }
+    else{
     if (condition == "Linear") {
         _video = linear_videos[whichVideo];
     }
@@ -312,7 +319,7 @@ function load_video() {
     else if (condition=="None"){
         _video = none_videos[whichVideo];
     }
-    console.log(_video);
+    //console.log(_video);
     video_id=_video.id;
 
     video_history=JSON.parse(window.sessionStorage.getItem("Video_history"));
@@ -327,6 +334,8 @@ function load_video() {
     window.sessionStorage.setItem("Video_history", JSON.stringify(video_history));
     
     console.log("Added " + video_id +" to history");
+    
+}
     return _video;
 }
 
@@ -367,7 +376,7 @@ var toChange = 0;
 
 function keyPress(e) {
     //console.log("Key press detected");
-  //  if (change == false) {
+    if (change == false) {
         if (e.code == "ArrowUp") {
             toChange = 1;
             change = true;
@@ -389,7 +398,7 @@ function keyPress(e) {
         annot += toChange;
         toChange=0;
         //console.log(dimension);
-    //}
+    }
 }
 
 function toQuestionnaire(){

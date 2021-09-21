@@ -11,23 +11,23 @@
    <div style="height:100%; width:100%; border:none">
     <div class = "split top_left">
         <h1>A</h1>
-        <video id="vid_1"  class = "videoInsert" src="Sample_1.mp4" type="video/mp4" controls>
+        <video id="vid_1"  class = "videoInsert" src="Sample_1.mp4" type="video/mp4" controls loop>
           Your browser does not support the video tag.
           </video>
           </div>
           <div class="split top_right">
               <h1>B</h1>
-          <video id="vid_2" class = "videoInsert" src="Sample_1.mp4" type="video/mp4" controls>
+          <video id="vid_2" class = "videoInsert" src="Sample_1.mp4" type="video/mp4" controls loop>
           Your browser does not support the video tag.
           </video></div>
           <div class="split bottom_left">
               <h1>C</h1>
-          <video id="vid_3" class="videoInsert" src="Sample_1.mp4" type="video/mp4"controls>
+          <video id="vid_3" class="videoInsert" src="Sample_1.mp4" type="video/mp4"controls loop>
           Your browser does not support the video tag.
           </video></div>
           <div class="split bottom_right">
               <h1>D</h1>
-          <video id="vid_4" class="videoInsert" src="Sample_1.mp4" type="video/mp4" controls>
+          <video id="vid_4" class="videoInsert" src="Sample_1.mp4" type="video/mp4" controls loop>
             <source id = "vid4_src" >
           Your browser does not support the video tag.
           </video></div>
@@ -36,11 +36,21 @@
     <div id="Questions">
         <h1>Questionnaire</h1>
         <p>You watched videos A, B, C, and D. To play/pause a video to replay one, click on the video<br>
+            You do not need to re-watch these videos - they are provided as a reference for you to answer the following questions<br>
+            If a video reaches its end, it will automatically loop<br>
+            <br>These videos contain all of the music and sound effects of the game, as you played them. We ask that you mainly focus your attention on the <b>music</b> in each video<br>
             Please answer the following questions about the videos that you watched
         </p>
         <hr><br>
-        <p>In which video do you feel that the music <b>most</b> closely matches the gameplay?</p>
+        <p>In which video do you feel that the music most closely matches the events and actions of the gameplay?</p>
         <select name="music_match" id="music_match">
+            <option id="match_A" value="A">A (Top left)</option>
+            <option id="match_B" value="B">B (Top right)</option>
+            <option id="match_C" value="C">C (Bottom left)</option>
+            <option id="match_D" value="D">D (Bottom right)</option>
+        </select><br>
+        <p>In which video do you feel that the music most closely matches the emotion that you perceive from the gameplay?</p>
+        <select name="music_emotion" id="music_emotion">
             <option id="match_A" value="A">A (Top left)</option>
             <option id="match_B" value="B">B (Top right)</option>
             <option id="match_C" value="C">C (Bottom left)</option>
@@ -83,7 +93,9 @@
             <option value="20+">20+ hours per week</option>
         </select>
         <p>Please write any additional comments in the space below:</p>
-        <textarea name = "comments" id="comments"></textarea>
+        <textarea name = "comments" rows="10" cols="75" id="comments"></textarea>
+        <p>If you are interested in receiving further information about this or related research, please enter your email address in the space below:</p>
+        <textarea name = "email" rows="1" cols = "20" id="email"></textarea>
     </div>
     <div id="Submission">
         <h3>Submit</h3>
