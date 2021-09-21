@@ -392,7 +392,7 @@ function keyPress(e) {
             else{pause_annotate();}
         }
         else if (e.code=="Backquote"){
-            end_annotate();
+            //end_annotate();
         }
 
         annot += toChange;
