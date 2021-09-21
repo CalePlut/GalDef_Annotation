@@ -7,8 +7,9 @@ from dtaidistance import dtw_visualisation as dtwvis
 import csv
 import sklearn
 from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_percentage_error
+from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
+from scipy import stats
 
 PreGLAM_annotations=[]
 Participant_annotations=[]
@@ -53,7 +54,9 @@ def dtw_analysis(paired_annotations):
                 if(idx>0):
                     query=np.array(annot, dtype=np.double)
                     path = dtw.warping_path(query, template)
-                    dtwvis.plot_warping(query, template, path, filename="{}_DTW.png".format(id))
+                    query_z=stats.zscore(query)
+                    template_z=stats.zscore(template)
+                    dtwvis.plot_warping(query_z, template_z, path, filename="{}_DTW.png".format(id))
                     distance = dtw.distance_fast(query, template)
                     #print("{} distance: {}".format(id,distance))
                     results.append(dtw_result(id, set.condition, set.dimension, set.number, distance))
@@ -71,16 +74,20 @@ def rsme_analysis(paired_annotations):
                         temp_size=len(annot)
                         temp_truncate=template[:temp_size]
                         query=np.array(annot, dtype=np.double)
-                        rms = mean_squared_error(temp_truncate, query, squared=False)
-                        r_square=r2_score(temp_truncate, query)
-                        mape=mean_absolute_percentage_error(temp_truncate, query)
+                        temp_z=stats.zscore(temp_truncate)
+                        query_z=stats.zscore(query)
+                        rms = mean_squared_error(temp_z, query_z, squared=False)
+                        r_square=r2_score(temp_z, query_z)
+                        mape=mean_absolute_error(temp_z, query_z)
                     else:
                         temp_size=len(template)
                         annot_truncate=annot[:temp_size]
                         query=np.array(annot_truncate, dtype=np.double)
-                        rms = mean_squared_error(template, query, squared=False)
-                        r_square=r2_score(template, query)
-                        mape=mean_absolute_percentage_error(template, query)
+                        query_z=stats.zscore(query)
+                        temp_z=stats.zscore(template)
+                        rms = mean_squared_error(temp_z, query_z, squared=False)
+                        r_square=r2_score(temp_z, query_z)
+                        mape=mean_absolute_error(temp_z, query_z)
                         
                     print("RMSE: {}".format(rms))
                     #print("{} distance: {}".format(id,distance))
@@ -92,7 +99,7 @@ def output_data(results, test):
     filename=test+"_results.csv"
     with open(filename, "w", newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['id', 'condition', 'number', 'dimension', 'rmse', 'mape', 'r2'])
+        writer.writerow(['id', 'condition', 'number', 'dimension', 'rmse', 'mae', 'r2'])
         for result in results:
             writer.writerow([result.id, result.condition, result.number, result.dimension, result.rmse, result.mape, result.r2])
             

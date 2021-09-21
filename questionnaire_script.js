@@ -29,7 +29,7 @@ function build_q_csv() {
     var row = `${data_ID}, ${codeword}, ${studentID}, ${consent}, ${age}, ${pronouns}, ${weekly_hours}, ${dimension} \r\n`;
     csv += row;
 
-    csv += "Music_match, Music_emotion,Immersion, Preference, Comments, Email, \r\n";
+    csv += "Music_match, Music_emotion ,Immersion, Preference, Comments, Email, \r\n";
     var music_match = document.getElementById("music_match").value;
     var music_emotion=document.getElementById("music_emotion").value;
     var immersion = document.getElementById("immersion").value;
@@ -113,6 +113,12 @@ const populate_video_answer = () => {
     document.getElementById("match_B").value = video_2;
     document.getElementById("match_C").value = video_3;
     document.getElementById("match_D").value = video_4;
+
+    document.getElementById("emotion_A").value = video_1;
+    document.getElementById("emotion_B").value = video_2;
+    document.getElementById("emotion_C").value = video_3;
+    document.getElementById("emotion_D").value = video_4;
+
 
     document.getElementById("immersion_A").value = video_1;
     document.getElementById("immersion_B").value = video_2;
