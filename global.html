@@ -4,7 +4,7 @@
     <title>Galactic Defense Study Website</title>
 <meta http-equiv="Cache-Control" content="no-cache">
     <!--Local files-->
-    <script src="annotate_build.js"></script>
+    <script src="annotate_build_global.js"></script>
     <link rel="stylesheet" href="annotate_style.css">
     <!--Private hosting
     <script src="http://caleplut.com/GalDef/annotate_build.js"></script>
@@ -91,7 +91,6 @@
         <h2>Your participation is voluntary</h2>
         <p>
         Your participation is voluntary. You have the right to refuse to participate in this study. If you decide  to participate, you may still choose to withdraw from the study at any time without any negative consequences.<br>
-<br>If you are here because you were recruited in a course, your instructor will not know whether you participated in this study, and your grades will not be affected by whether you choose to participate or not. <br>
 <br>You may know someone on the research team personally. Please do not feel pressure to participate due to a personal connection.</p>
 
         <h2>What will you do in this study?</h2>
@@ -105,12 +104,11 @@
         <p>We do not think taking part in this study will directly help you. However, in the future, researchers, game designers, and musicians may benefit
             from what we learn in this study</p>
         <h2>How will you be compensated for your time?</h2>
-        <p> You will be given 2 credits via the Sona research participation system for participating in this study<br>
-        If you are taking a class that gives credit for Sona participation (such as IAT 167), you will receive the corresponding class credit<br>
-    Otherwise, you will not be compensated for your time. You will, however, get to play a video game</p>
+        <p> You will not be compensated for your time. You will, however, get to play a video game</p>
         <h2>How will your identity be protected?</h2>
-        <p>Your confidentiality will be respected. We collect Student IDs only for the purposes of granting course credit via the Sona research participation system<br><br>
-            Upon completing the study, data including your Student ID, annotations, and questionnaire responses will be briefly stored on Cale Plut's private server, accessible only by him. These files will be transferred as soon as possible to SFU servers, and we will discard Student IDs once course credit is provided in Sona. Only your provided annotations, questionnaire responses, and a randomly generated id will be retained, and Cale Plut will be the only member of the research team with access to this data. 
+        <p>Your confidentiality will be respected. Your data is only identified by a randomly assigned id.<br><br>
+            Upon completing the study, data including your annotations, and questionnaire responses will be briefly stored on Cale Plut's private server, accessible only by him. These files will be transferred as soon as possible to SFU servers.
+            <br>Only your provided annotations, questionnaire responses, and a randomly generated id will be retained, and Cale Plut will be the only member of the research team with access to this data. 
             </p>
         <p>
         </p>
@@ -118,7 +116,7 @@
         <p> You may withdraw from this study at any time without giving reasons and with no effects<br><br>
             To withdraw from this study, close your internet browser or the active tab. Any annotations and/or data that you have provided up until now will be immediately discarded.<br><br>
             If you are playing Galactic Defense and wish to withdraw, you can quit the game at any time by pressing Alt-F4 on Windows or Command-Q on OSX. <br><br>
-            If you wish to withdraw after you have submitted your responses, please email Cale Plut at cplut@sfu.ca. Please note that once course credit has been granted, we will be unable to remove your data.
+            Please note that once you have completed the full study, you can no longer withdraw your data, as we cannot connect the data to you.
             </p>
         <h2>How will the results be disseminated?</h2>
         <p>The results of this study will be published in academic journal articles<br>
@@ -133,9 +131,8 @@
             <a href="mailto:jtoward@sfu.ca">jtoward@sfu.ca</a> or 778-782-6593
         </p>
 <hr><br>
-        <p>Please provide your student ID, to verify participation, and check the box to indicate that you have read and
+        <p>Please check the box to indicate that you have read and
             understand this consent form</p>
-        <input type="text" id="studentID" name="studentID">Student ID</input><br>
         <input type="checkbox" id="consent" name="consent" onclick="scrollFromConsent()">I agree</checkbox>
 
     </div>
@@ -175,7 +172,7 @@
                 <br>When you are ready to annotate videos, please enter the codeword that the game provided in the box below</p>
                 <textarea id = "codeword" rows = "1" cols = "20" name="codeword"></textarea>
                 <p id = "phase1_timer_bottom", style="font-size:x-large"></p> 
-            <button type="button" class="button" id="phase2_button" disabled onclick="phase2()">Continue to phase 2</button>
+            <button type="button" class="button" id="phase2_button" disabled=true onclick="phase2()">Continue to phase 2</button>
     </div>
  
     <div id="Phase2_Instructions" class="Instructions" style="display:none">

@@ -50,6 +50,11 @@ h2{
 .button:hover{
   background-color:red;
 }
+.button:disabled{
+  background-color:gray;
+  color:black;
+  border:gray;
+}
 #text{
   position: absolute;
   top: 45%;
