@@ -389,7 +389,7 @@ function keyPress(e) {
             if(!playing){
                 begin_annotate();
             }
-            else{pause_annotate();}
+           // else{pause_annotate();}
         }
         else if (e.code=="Backquote"){
             //end_annotate();
