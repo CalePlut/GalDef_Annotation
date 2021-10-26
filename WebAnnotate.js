@@ -1,7 +1,9 @@
 document.addEventListener('keydown', keyPress)
 
-var post_online = true;
-var save=false;
+
+//Change back!
+var post_online = false;
+var save=true;
 
 var annot_interval;
 
@@ -259,6 +261,9 @@ const export_csv = (fileName) => {
     hiddenElement.target = '_blank';
     hiddenElement.download = fileName + '.csv';
     hiddenElement.click();
+
+    
+    document.getElementById("endAnnot").style="display:block";
     }
     if(post_online){
         post_CSV(csv);

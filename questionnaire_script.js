@@ -1,5 +1,5 @@
-var save = false;
-var post_online = true;
+var save = true;
+var post_online = false;
 var video_history = JSON.parse(window.sessionStorage.getItem("Video_history"));
 var videos_exist = true;
 var data_ID
@@ -10,7 +10,7 @@ const load_questionnaire = () => {
 }
 
 function submit_questionnaire() {
-    var fileName=`GalDef_Question_${data_ID}`;
+    var fileName = `GalDef_Question_${data_ID}`;
     export_q_csv(fileName);
 }
 
@@ -18,7 +18,7 @@ function build_q_csv() {
     //Encode header data
     var csv = "data_ID, Codeword, StudentID, Consent, Age, Pronouns, Weekly_hours, Dimension\r\n";
     data_ID = window.sessionStorage.getItem("data_id");
-    var codeword=window.sessionStorage.getItem("Codeword");
+    var codeword = window.sessionStorage.getItem("Codeword");
     var studentID = window.sessionStorage.getItem("StudentID");
     var consent = window.sessionStorage.getItem("Consent");
     var dimension = window.sessionStorage.getItem("Dimension");
@@ -31,7 +31,7 @@ function build_q_csv() {
 
     csv += "Music_match, Music_emotion ,Immersion, Preference, Comments, Email, \r\n";
     var music_match = document.getElementById("music_match").value;
-    var music_emotion=document.getElementById("music_emotion").value;
+    var music_emotion = document.getElementById("music_emotion").value;
     var immersion = document.getElementById("immersion").value;
     var preference = document.getElementById("preference").value;
     var comments = document.getElementById("comments").value;
@@ -51,18 +51,20 @@ const export_q_csv = (fileName) => {
         hiddenElement.target = '_blank';
         hiddenElement.download = fileName + '.csv';
         hiddenElement.click();
+        document.getElementById("endQuest").style = "display:block";
+        mTurkText();
     }
     if (post_online) {
         post_CSV(csv);
     }
 }
 
-function post_CSV (csv) {
+function post_CSV(csv) {
     console.log("Posting CSV");
 
     // (A) CREATE BLOB OBJECT
-    var myBlob = new Blob([csv], {type: "text/csv"});
-  
+    var myBlob = new Blob([csv], { type: "text/csv" });
+
     // (B) FORM DATA
     var data = new FormData();
     data.append("upfile", myBlob);
@@ -72,21 +74,31 @@ function post_CSV (csv) {
     xhr.open("POST", "upload_quest.php");
     xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
     xhr.onload = function () {
-      console.log(this.status);
-      console.log(this.response);
+        console.log(this.status);
+        console.log(this.response);
     };
     xhr.send(data);
 
     xhr.onreadystatechange = upload_state;
 
-    function upload_state(){
+    function upload_state() {
         //console.log(xhr.readyState)
-        if(xhr.readyState===XMLHttpRequest.DONE){
-            document.getElementById("endQuest").style="display:block";
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            document.getElementById("endQuest").style = "display:block";
+            mTurkText();
             //annotate_finish();
         }
-      }
-  }
+    }
+}
+
+function mTurkText(){
+    if (sessionStorage.getItem("mTurk") == "true") {
+        text = document.getElementById("mTurkText");
+        text.style.display = "block";
+        var str = document.getElementById("mTurkText").innerHTML;
+        document.getElementById("mTurkText").innerHTML = str.replaceAll("_id", data_ID);
+    }
+}
 
 const populate_videos = () => {
 
@@ -132,33 +144,33 @@ const populate_video_answer = () => {
 }
 
 const find_video_source = (video_id) => {
-    if(video_id.includes("Linear")){
-        for(_video of linear_videos){
-            if(_video.id==video_id){
+    if (video_id.includes("Linear")) {
+        for (_video of linear_videos) {
+            if (_video.id == video_id) {
                 return _video.src;
             }
         }
     }
-    else if (video_id.includes("Adaptive")){
-        for(_video of adaptive_videos){
-            if(_video.id==video_id){
+    else if (video_id.includes("Adaptive")) {
+        for (_video of adaptive_videos) {
+            if (_video.id == video_id) {
                 return _video.src;
             }
         }
     }
-    else if (video_id.includes("Generative")){
-        for(_video of generative_videos){
-            if(_video.id==video_id){
+    else if (video_id.includes("Generative")) {
+        for (_video of generative_videos) {
+            if (_video.id == video_id) {
                 return _video.src;
             }
         }
     }
-    else if (video_id.includes("None")){
-        for(_video of none_videos){
-            if(_video.id==video_id){
+    else if (video_id.includes("None")) {
+        for (_video of none_videos) {
+            if (_video.id == video_id) {
                 return _video.src;
             }
         }
     }
-    else {console.log("No condition in ID?")}
+    else { console.log("No condition in ID?") }
 }

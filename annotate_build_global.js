@@ -113,6 +113,7 @@ function phase1_complete(){
     timer_complete.play();
     document.getElementById("phase1_timer").innerHTML= "Time complete! Please proceed to the phase 2";
     document.getElementById("phase2_button").disabled = false;
+    document.getElementById("timerText").style.display="block";
 }
 
 function Consent_to_Instructions() {

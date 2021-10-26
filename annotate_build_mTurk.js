@@ -69,22 +69,22 @@ function submit_consent(){
 }
 
 function scrollFromConsent(){
-    if(document.getElementById("studentID").value.length>0){
+   // if(document.getElementById("studentID").value.length>0){
     if(document.getElementById("consent").checked==true){
         consent=true;
-        StudentID=document.getElementById("studentID").value;
+        StudentID="mTurk"
         Consent_to_Instructions();
         document.getElementById("Phase1_Instructions").scrollIntoView(true);
     }
     else{
-        window.alert("Please accept consent information (This may not be your fault, this is supposed to be impossible. Try re-clicking 'I accept' or re-loading the page)");
+        window.alert("Please accept consent information (This may not be your fault, this is supposed to be impossible. Try re-loading the page)");
     }
     start_phase1_timer();
-}
-else{
-    document.getElementById("consent").checked=false;
-    window.alert("Please enter your student ID");
-}
+//}
+//else{
+ //   document.getElementById("consent").checked=false;
+ //   window.alert("Please enter your student ID");
+//}
 }
 
 function start_phase1_timer(){
@@ -112,7 +112,7 @@ function phase1_complete(){
     clearInterval(timerID);
     timer_complete.play();
     document.getElementById("phase1_timer").innerHTML= "Time complete! Please proceed to the phase 2";
-    document.getElementById("phase2_button").disabled=false;
+    document.getElementById("phase2_button").disabled = false;
     document.getElementById("timerText").style.display="block";
 }
 
@@ -134,6 +134,8 @@ window.sessionStorage.setItem("Dimension", dimension);
 codeword=document.getElementById("codeword").value;
 //console.log("Codeword: " + codeword);
 window.sessionStorage.setItem("Codeword", codeword);
+
+window.sessionStorage.setItem("mTurk", "true");
 
     //Setup for annotation reloads
     window.sessionStorage.setItem("Sample", "false");
