@@ -1,9 +1,9 @@
 document.addEventListener('keydown', keyPress)
 
 
-//Change back!
-var post_online = false;
-var save=true;
+
+var post_online = true; //MUST BE TRUE FOR LIVE
+var save=false; //MUST BE FALSE FOR LIVE
 
 var annot_interval;
 

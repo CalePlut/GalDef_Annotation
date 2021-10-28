@@ -1,5 +1,5 @@
-var save = true;
-var post_online = false;
+var save = false; //MUST BE FALSE FOR LIVE
+var post_online = true; //MUST BE TRUE FOR LIVE
 var video_history = JSON.parse(window.sessionStorage.getItem("Video_history"));
 var videos_exist = true;
 var data_ID
