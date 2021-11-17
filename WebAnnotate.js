@@ -78,7 +78,7 @@ function annotation_setup() {
     let samp = document.getElementById("sample_annot").innerHTML;
     document.getElementById("sample_annot").innerHTML=samp.replaceAll("_dimension", dimension);
 
-    console.log("Starting annotation");
+    console.log("Annotaiton Loaded");
 }
 
 function video_loaded(){ //Hides loading overlay and loads playing overlay
